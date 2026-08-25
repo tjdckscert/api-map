@@ -18,10 +18,11 @@ import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * 장소 검색 파이프라인:
- *  1. Nominatim(OSM) 역지오코딩으로 지도 중심의 행정동 이름을 얻고 (키 불필요)
- *  2. 카카오맵 내부 검색으로 "{행정동} 카페/음식점"을 조회해 평점까지 실시간 획득
- *  3. 네이버 평점은 오프라인 수집분(NaverStore)에서 병합
- * 상위 서비스 부하를 줄이기 위해 지역/검색 결과 모두 메모리 캐시한다.
+ *  1. 지도 뷰포트(위경도 bbox)를 WCONGNAMUL rect로 변환해
+ *     카카오맵 내부 검색(mcheck=Y: 현 지도 내 검색)으로 평점 포함 장소를 실시간 조회
+ *  2. 네이버 평점은 오프라인 수집분(NaverStore)에서 병합
+ *  3. 상태바 표시용 지역명은 Nominatim(OSM) 역지오코딩 (키 불필요)
+ * 상위 서비스 부하를 줄이기 위해 지역명/검색 결과 모두 메모리 캐시한다.
  */
 @Service
 public class PlaceService {
@@ -35,7 +36,7 @@ public class PlaceService {
             "food", "음식점",
             "cafe", "카페"
     );
-    private static final int PAGES_PER_CATEGORY = 2; // 페이지당 15건
+    private static final int PAGES_PER_CATEGORY = 3; // 페이지당 15건 → 카테고리당 최대 45건
     private static final Duration REGION_TTL = Duration.ofHours(24);
     private static final Duration SEARCH_TTL = Duration.ofMinutes(10);
 
@@ -57,70 +58,45 @@ public class PlaceService {
         this.naverStore = naverStore;
     }
 
-    public Map<String, Object> findPlaces(double lat, double lng, List<String> categories) {
-        String region = resolveRegion(lat, lng);
+    /** 뷰포트(bbox) 안의 음식점/카페를 평점과 함께 반환. */
+    public Map<String, Object> findPlaces(double swLat, double swLng, double neLat, double neLng,
+                                          List<String> categories) {
+        double[] sw = Wcong.fromWgs84(swLat, swLng);
+        double[] ne = Wcong.fromWgs84(neLat, neLng);
+        String rect = "%.0f,%.0f,%.0f,%.0f".formatted(sw[0], sw[1], ne[0], ne[1]);
+
         Map<String, Place> merged = new LinkedHashMap<>();
         for (String category : categories) {
             String keyword = CATEGORY_KEYWORDS.get(category);
             if (keyword == null) continue;
-            for (Place p : searchCached(region + " " + keyword, keyword)) {
+            for (Place p : searchCached(keyword, rect)) {
                 merged.putIfAbsent(p.id(), p);
             }
         }
+        String region = resolveRegion((swLat + neLat) / 2, (swLng + neLng) / 2);
         return Map.of("region", region, "places", List.copyOf(merged.values()));
     }
 
-    /** 좌표(약 100m 격자 단위)를 행정동 이름으로 변환. 실패 시 좌표 문자열로 검색. */
-    private String resolveRegion(double lat, double lng) {
-        String key = String.format("%.3f,%.3f", lat, lng);
-        Cached<String> hit = regionCache.get(key);
-        if (hit != null && hit.fresh(REGION_TTL)) return hit.value();
-
-        String region = fetchRegion(lat, lng);
-        regionCache.put(key, new Cached<>(region, Instant.now()));
-        return region;
-    }
-
-    private String fetchRegion(double lat, double lng) {
-        try {
-            String uri = UriComponentsBuilder.fromUriString(NOMINATIM)
-                    .queryParam("format", "jsonv2")
-                    .queryParam("lat", lat)
-                    .queryParam("lon", lng)
-                    .queryParam("zoom", 14)
-                    .queryParam("accept-language", "ko")
-                    .build().toUriString();
-            JsonNode address = mapper.readTree(http.get().uri(uri).retrieve().body(String.class))
-                    .path("address");
-            List<String> parts = new ArrayList<>();
-            for (String field : List.of("city", "county", "borough", "city_district",
-                    "suburb", "quarter", "town", "village")) {
-                String v = address.path(field).asText("");
-                if (!v.isEmpty() && !parts.contains(v)) parts.add(v);
-            }
-            if (!parts.isEmpty()) return String.join(" ", parts);
-        } catch (Exception e) {
-            log.warn("역지오코딩 실패 ({}, {}): {}", lat, lng, e.getMessage());
-        }
-        return String.format("%.5f,%.5f 주변", lat, lng);
-    }
-
-    private List<Place> searchCached(String query, String categoryLabel) {
-        Cached<List<Place>> hit = searchCache.get(query);
+    private List<Place> searchCached(String keyword, String rect) {
+        String key = keyword + "|" + rect;
+        Cached<List<Place>> hit = searchCache.get(key);
         if (hit != null && hit.fresh(SEARCH_TTL)) return hit.value();
 
-        List<Place> places = searchKakao(query, categoryLabel);
-        searchCache.put(query, new Cached<>(places, Instant.now()));
+        List<Place> places = searchKakao(keyword, rect);
+        searchCache.put(key, new Cached<>(places, Instant.now()));
         return places;
     }
 
-    private List<Place> searchKakao(String query, String categoryLabel) {
+    /** 카카오맵 내부 검색: mcheck=Y + rect(WCONGNAMUL)로 '현 지도 내 검색'과 동일하게 조회. */
+    private List<Place> searchKakao(String keyword, String rect) {
         List<Place> result = new ArrayList<>();
         for (int page = 1; page <= PAGES_PER_CATEGORY; page++) {
             try {
                 String uri = UriComponentsBuilder.fromUriString(KAKAO_SEARCH)
-                        .queryParam("q", query)
+                        .queryParam("q", keyword)
                         .queryParam("msFlag", "A")
+                        .queryParam("mcheck", "Y")
+                        .queryParam("rect", rect)
                         .queryParam("sort", "0")
                         .queryParam("page", page)
                         .build().toUriString();
@@ -130,11 +106,11 @@ public class PlaceService {
                 JsonNode placeList = mapper.readTree(body).path("place");
                 if (!placeList.isArray() || placeList.isEmpty()) break;
                 for (JsonNode p : placeList) {
-                    Place place = toPlace(p, categoryLabel);
+                    Place place = toPlace(p, keyword);
                     if (place != null) result.add(place);
                 }
             } catch (Exception e) {
-                log.warn("카카오 검색 실패 (q={}, page={}): {}", query, page, e.getMessage());
+                log.warn("카카오 검색 실패 (q={}, rect={}, page={}): {}", keyword, rect, page, e.getMessage());
                 break;
             }
         }
@@ -166,5 +142,40 @@ public class PlaceService {
                 "https://place.map.kakao.com/" + id,
                 kakao,
                 naverStore.get(id));
+    }
+
+    /** 상태바 표시용 지역명. 좌표(약 100m 격자 단위) 기준 캐시. */
+    private String resolveRegion(double lat, double lng) {
+        String key = String.format("%.3f,%.3f", lat, lng);
+        Cached<String> hit = regionCache.get(key);
+        if (hit != null && hit.fresh(REGION_TTL)) return hit.value();
+
+        String region = fetchRegion(lat, lng);
+        regionCache.put(key, new Cached<>(region, Instant.now()));
+        return region;
+    }
+
+    private String fetchRegion(double lat, double lng) {
+        try {
+            String uri = UriComponentsBuilder.fromUriString(NOMINATIM)
+                    .queryParam("format", "jsonv2")
+                    .queryParam("lat", lat)
+                    .queryParam("lon", lng)
+                    .queryParam("zoom", 16)
+                    .queryParam("accept-language", "ko")
+                    .build().toUriString();
+            JsonNode address = mapper.readTree(http.get().uri(uri).retrieve().body(String.class))
+                    .path("address");
+            List<String> parts = new ArrayList<>();
+            for (String field : List.of("city", "county", "borough", "city_district",
+                    "suburb", "quarter", "neighbourhood", "town", "village")) {
+                String v = address.path(field).asText("");
+                if (!v.isEmpty() && !parts.contains(v)) parts.add(v);
+            }
+            if (!parts.isEmpty()) return String.join(" ", parts);
+        } catch (Exception e) {
+            log.warn("역지오코딩 실패 ({}, {}): {}", lat, lng, e.getMessage());
+        }
+        return "";
     }
 }
