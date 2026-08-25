@@ -3,8 +3,8 @@
   "configurations": [
     {
       "name": "api-map",
-      "runtimeExecutable": "cmd",
-      "runtimeArgs": ["/c", "cd /d \"C:\\DEV\\API Map\" && gradlew.bat bootRun"],
+      "runtimeExecutable": "C:\\DEV\\API Map\\gradlew.bat",
+      "runtimeArgs": ["bootRun"],
       "port": 8890
     }
   ]
