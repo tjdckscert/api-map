@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "api-map",
+      "runtimeExecutable": "cmd",
+      "runtimeArgs": ["/c", "gradlew.bat bootRun"],
+      "port": 8080
+    }
+  ]
+}
