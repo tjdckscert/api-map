@@ -1,210 +1,156 @@
 /**
- * API Map — 음식점·카페 평점 지도
+ * API Map — 음식점·카페 평점 지도 (Spring Boot + Leaflet)
  *
- * 구조:
- *  - 장소 마커: 카카오맵 JS SDK 장소 검색(공식)으로 현재 지도 영역을 실시간 검색
- *  - 평점: 사전 수집된 data/ratings.json 캐시에서 장소 ID로 매칭
- *    (브라우저에서 평점 원본을 직접 호출할 수 없음 — CORS 차단)
+ * 지도를 움직이면 백엔드 /api/places 가 지도 중심 주변의 장소를
+ * 카카오 평점(실시간)과 네이버 평점(오프라인 수집분)으로 반환한다.
  */
 (function () {
   'use strict';
 
-  var CATEGORIES = [
-    { code: 'FD6', key: 'food', color: '#e8590c' },
-    { code: 'CE7', key: 'cafe', color: '#5f3dc4' },
-  ];
-  var MAX_PAGES = 3; // 카테고리당 15개 × 3페이지 = 45개 (SDK 최대)
+  var DEFAULT_VIEW = { lat: 37.49795, lng: 127.02758, zoom: 16 };
 
-  var map, places, clusterer;
-  var ratings = {}; // place id → { kakao: {...}, naver: {...} }
-  var markers = []; // 현재 표시 중인 마커/오버레이
-  var openCard = null;
-  var searchSeq = 0;
+  var saved = loadViewport();
+  var map = L.map('map').setView([saved.lat, saved.lng], saved.zoom);
+  L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 19,
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+  }).addTo(map);
 
-  if (!CONFIG.KAKAO_JS_KEY) {
-    document.getElementById('setup-notice').hidden = false;
-    return;
-  }
+  var layer = L.layerGroup().addTo(map);
+  var fetchSeq = 0;
+  var lastPlaces = [];
 
-  // 카카오맵 SDK 동적 로드
-  var script = document.createElement('script');
-  script.src = 'https://dapi.kakao.com/v2/maps/sdk.js?appkey=' + CONFIG.KAKAO_JS_KEY +
-    '&libraries=services,clusterer&autoload=false';
-  script.onload = function () { kakao.maps.load(init); };
-  document.head.appendChild(script);
+  var timer = null;
+  map.on('moveend', function () {
+    saveViewport();
+    clearTimeout(timer);
+    timer = setTimeout(refresh, 400);
+  });
+  document.querySelectorAll('#controls input').forEach(function (el) {
+    el.addEventListener('change', refresh);
+  });
+  document.getElementById('min-rating').addEventListener('change', function () {
+    render(lastPlaces); // 필터만 바뀌면 재요청 없이 다시 그림
+  });
 
-  function init() {
-    var saved = loadViewport();
-    map = new kakao.maps.Map(document.getElementById('map'), {
-      center: new kakao.maps.LatLng(saved.lat, saved.lng),
-      level: saved.level,
-    });
-    places = new kakao.maps.services.Places(map);
-    clusterer = new kakao.maps.MarkerClusterer({
-      map: map,
-      averageCenter: true,
-      minLevel: 6,
-      disableClickZoom: false,
-    });
+  refresh();
 
-    loadRatings().then(function () {
-      var timer = null;
-      kakao.maps.event.addListener(map, 'idle', function () {
-        saveViewport();
-        clearTimeout(timer);
-        timer = setTimeout(searchViewport, 400);
-      });
-      document.querySelectorAll('#controls input, #controls select').forEach(function (el) {
-        el.addEventListener('change', searchViewport);
-      });
-      searchViewport();
-    });
-  }
+  function refresh() {
+    var categories = [];
+    if (document.getElementById('chk-food').checked) categories.push('food');
+    if (document.getElementById('chk-cafe').checked) categories.push('cafe');
+    if (!categories.length) {
+      lastPlaces = [];
+      render(lastPlaces);
+      return;
+    }
 
-  function loadRatings() {
-    return fetch('data/ratings.json')
-      .then(function (r) { return r.ok ? r.json() : {}; })
-      .then(function (data) { ratings = data || {}; })
-      .catch(function () { ratings = {}; });
-  }
-
-  function searchViewport() {
-    var seq = ++searchSeq;
-    var enabled = CATEGORIES.filter(function (c) {
-      return document.getElementById('chk-' + c.key).checked;
-    });
-    var minRating = parseFloat(document.getElementById('min-rating').value);
-
+    var seq = ++fetchSeq;
+    var c = map.getCenter();
     setStatus('검색 중…');
-    clearMarkers();
-    if (!enabled.length) { setStatus('0곳'); return; }
-
-    var pending = enabled.length;
-    var results = [];
-
-    enabled.forEach(function (cat) {
-      collectCategory(cat, seq, function (list) {
-        if (seq !== searchSeq) return;
-        results = results.concat(list);
-        if (--pending === 0) render(results, minRating, seq);
+    fetch('/api/places?lat=' + c.lat.toFixed(6) + '&lng=' + c.lng.toFixed(6) +
+          '&categories=' + categories.join(','))
+      .then(function (r) {
+        if (!r.ok) throw new Error('HTTP ' + r.status);
+        return r.json();
+      })
+      .then(function (data) {
+        if (seq !== fetchSeq) return;
+        lastPlaces = data.places || [];
+        render(lastPlaces, data.region);
+      })
+      .catch(function (e) {
+        if (seq !== fetchSeq) return;
+        setStatus('오류: ' + e.message);
       });
-    });
   }
 
-  // 한 카테고리를 최대 MAX_PAGES 페이지까지 수집
-  function collectCategory(cat, seq, done) {
-    var acc = [];
-    places.categorySearch(cat.code, function cb(result, status, pagination) {
-      if (seq !== searchSeq) return;
-      if (status === kakao.maps.services.Status.OK) {
-        result.forEach(function (p) { p._cat = cat; });
-        acc = acc.concat(result);
-        if (pagination.hasNextPage && pagination.current < MAX_PAGES) {
-          pagination.nextPage();
-          return;
-        }
-      }
-      done(acc);
-    }, { useMapBounds: true });
-  }
-
-  function render(list, minRating, seq) {
-    if (seq !== searchSeq) return;
+  function render(places, region) {
+    layer.clearLayers();
+    var minRating = parseFloat(document.getElementById('min-rating').value);
     var shown = 0;
-    var newMarkers = [];
 
-    list.forEach(function (p) {
-      var r = ratings[p.id];
-      if (minRating > 0 && !(r && r.kakao && r.kakao.rating >= minRating)) return;
+    places.forEach(function (p) {
+      if (minRating > 0 && !(p.kakao && p.kakao.rating >= minRating)) return;
       shown++;
 
-      var pos = new kakao.maps.LatLng(p.y, p.x);
-      var marker = new kakao.maps.Marker({ position: pos, title: p.place_name });
-      kakao.maps.event.addListener(marker, 'click', function () { showCard(p, r, pos); });
-      newMarkers.push(marker);
-
-      if (r && (r.kakao || r.naver)) {
-        var label = new kakao.maps.CustomOverlay({
-          position: pos,
-          content: labelHtml(r),
-          yAnchor: 1,
-          zIndex: 2,
-        });
-        label.setMap(map);
-        markers.push(label);
-      }
+      var isCafe = /카페|커피|디저트|베이커리|찻집/.test(p.category);
+      var marker = L.marker([p.lat, p.lng], {
+        icon: L.divIcon({
+          className: '',
+          html: markerHtml(p, isCafe),
+          iconSize: null,
+          iconAnchor: [0, 12],
+        }),
+      });
+      marker.bindPopup(popupHtml(p), { maxWidth: 300 });
+      layer.addLayer(marker);
     });
 
-    clusterer.addMarkers(newMarkers);
-    markers = markers.concat(newMarkers);
-    setStatus(shown + '곳');
+    setStatus((region ? region + ' · ' : '') + shown + '곳');
   }
 
-  function labelHtml(r) {
-    var parts = [];
-    if (r.kakao) parts.push('<span class="k">K ' + r.kakao.rating.toFixed(1) + '</span>');
-    if (r.naver && r.naver.rating) parts.push('<span class="n">N ' + r.naver.rating.toFixed(1) + '</span>');
-    return '<div class="marker-label">' + parts.join(' · ') + '</div>';
-  }
-
-  function showCard(p, r, pos) {
-    closeCard();
-    var el = document.createElement('div');
-    el.className = 'place-card';
-    el.innerHTML =
-      '<button class="close" aria-label="닫기">×</button>' +
-      '<h3>' + esc(p.place_name) + '</h3>' +
-      '<div class="category">' + esc(p.category_name ? p.category_name.split('>').pop().trim() : '') + '</div>' +
-      '<div class="address">' + esc(p.road_address_name || p.address_name || '') + '</div>' +
-      ratingRow('kakao', '카카오', r && r.kakao) +
-      ratingRow('naver', '네이버', r && r.naver) +
-      '<div class="links">' +
-      '<a class="kakao" href="' + esc(p.place_url) + '" target="_blank" rel="noopener">카카오맵</a>' +
-      '<a class="naver" href="https://map.naver.com/p/search/' + encodeURIComponent(p.place_name) + '" target="_blank" rel="noopener">네이버지도</a>' +
+  function markerHtml(p, isCafe) {
+    var scores = [];
+    if (p.kakao) scores.push('<span class="k">K ' + p.kakao.rating.toFixed(1) + '</span>');
+    var nRating = p.naver && p.naver.rating;
+    if (nRating) scores.push('<span class="n">N ' + Number(nRating).toFixed(1) + '</span>');
+    return '<div class="poi ' + (isCafe ? 'cafe' : 'food') + '">' +
+      '<span class="dot"></span>' +
+      '<span class="poi-name">' + esc(shorten(p.name, 12)) + '</span>' +
+      (scores.length ? '<span class="poi-score">' + scores.join(' ') + '</span>' : '') +
       '</div>';
-
-    var overlay = new kakao.maps.CustomOverlay({ position: pos, content: el, yAnchor: 0, zIndex: 10 });
-    overlay.setMap(map);
-    el.querySelector('.close').addEventListener('click', closeCard);
-    openCard = overlay;
   }
 
-  function ratingRow(cls, name, data) {
+  function popupHtml(p) {
+    return '<div class="place-popup">' +
+      '<h3>' + esc(p.name) + '</h3>' +
+      '<div class="category">' + esc(p.category) + '</div>' +
+      '<div class="address">' + esc(p.address) + '</div>' +
+      ratingRow('kakao', '카카오', p.kakao) +
+      ratingRow('naver', '네이버', p.naver) +
+      '<div class="links">' +
+      '<a class="kakao" href="' + esc(p.placeUrl) + '" target="_blank" rel="noopener">카카오맵</a>' +
+      '<a class="naver" href="https://map.naver.com/p/search/' + encodeURIComponent(p.name) +
+      '" target="_blank" rel="noopener">네이버지도</a>' +
+      '</div></div>';
+  }
+
+  function ratingRow(cls, label, data) {
     var body;
     if (data && data.rating) {
-      body = '<span class="score">★ ' + data.rating.toFixed(1) + '</span>' +
-        '<span class="count">(' + (data.count || 0) + ')</span>';
+      body = '<span class="score">★ ' + Number(data.rating).toFixed(1) + '</span>' +
+        '<span class="count">(' + (data.count || 0) + ')</span>' +
+        (data.reviews ? '<span class="count">리뷰 ' + data.reviews + '</span>' : '');
     } else if (data && data.visitorReviews != null) {
       body = '<span class="count">방문자리뷰 ' + data.visitorReviews +
         (data.blogReviews != null ? ' · 블로그 ' + data.blogReviews : '') + '</span>';
     } else {
-      body = '<span class="none">평점 캐시 없음</span>';
+      body = '<span class="none">' + (cls === 'naver' ? '수집 전' : '평점 없음') + '</span>';
     }
-    return '<div class="rating-row"><span class="src ' + cls + '">' + name + '</span>' + body + '</div>';
-  }
-
-  function closeCard() {
-    if (openCard) { openCard.setMap(null); openCard = null; }
-  }
-
-  function clearMarkers() {
-    closeCard();
-    clusterer.clear();
-    markers.forEach(function (m) { m.setMap(null); });
-    markers = [];
+    return '<div class="rating-row"><span class="src ' + cls + '">' + label + '</span>' + body + '</div>';
   }
 
   function setStatus(text) {
     document.getElementById('status').textContent = text;
   }
 
+  function shorten(s, n) {
+    return s.length > n ? s.slice(0, n) + '…' : s;
+  }
+
+  function esc(s) {
+    return String(s == null ? '' : s).replace(/[&<>"']/g, function (ch) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[ch];
+    });
+  }
+
   function saveViewport() {
     try {
       var c = map.getCenter();
-      localStorage.setItem('apimap.viewport', JSON.stringify({
-        lat: c.getLat(), lng: c.getLng(), level: map.getLevel(),
-      }));
-    } catch (e) { /* 저장 실패는 무시 */ }
+      localStorage.setItem('apimap.viewport',
+        JSON.stringify({ lat: c.lat, lng: c.lng, zoom: map.getZoom() }));
+    } catch (e) { /* 무시 */ }
   }
 
   function loadViewport() {
@@ -212,16 +158,6 @@
       var v = JSON.parse(localStorage.getItem('apimap.viewport'));
       if (v && v.lat && v.lng) return v;
     } catch (e) { /* 무시 */ }
-    return {
-      lat: CONFIG.DEFAULT_CENTER.lat,
-      lng: CONFIG.DEFAULT_CENTER.lng,
-      level: CONFIG.DEFAULT_LEVEL,
-    };
-  }
-
-  function esc(s) {
-    return String(s).replace(/[&<>"']/g, function (ch) {
-      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[ch];
-    });
+    return DEFAULT_VIEW;
   }
 })();
