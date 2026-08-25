@@ -77,6 +77,37 @@ public class PlaceService {
         return Map.of("region", region, "places", List.copyOf(merged.values()));
     }
 
+    /** 검색창용: 자유 검색어로 장소 검색 (지역 이동/장소 찾기). */
+    public List<Place> searchByQuery(String query) {
+        String key = "q|" + query;
+        Cached<List<Place>> hit = searchCache.get(key);
+        if (hit != null && hit.fresh(SEARCH_TTL)) return hit.value();
+
+        List<Place> places = new ArrayList<>();
+        try {
+            String uri = UriComponentsBuilder.fromUriString(KAKAO_SEARCH)
+                    .queryParam("q", query)
+                    .queryParam("msFlag", "A")
+                    .queryParam("sort", "0")
+                    .queryParam("page", 1)
+                    .build().toUriString();
+            String body = http.get().uri(uri)
+                    .header("Referer", "https://map.kakao.com/")
+                    .retrieve().body(String.class);
+            JsonNode placeList = mapper.readTree(body).path("place");
+            if (placeList.isArray()) {
+                for (JsonNode p : placeList) {
+                    Place place = toPlace(p, "");
+                    if (place != null) places.add(place);
+                }
+            }
+        } catch (Exception e) {
+            log.warn("검색 실패 (q={}): {}", query, e.getMessage());
+        }
+        searchCache.put(key, new Cached<>(places, Instant.now()));
+        return places;
+    }
+
     private List<Place> searchCached(String keyword, String rect) {
         String key = keyword + "|" + rect;
         Cached<List<Place>> hit = searchCache.get(key);
