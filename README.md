@@ -8,58 +8,63 @@
 
 ## 설명
 
-카카오맵 JS SDK로 현재 화면 영역의 음식점·카페를 실시간 검색해 표시하고, 사전 수집한 카카오/네이버 평점 캐시(`data/ratings.json`)를 장소별로 병기하는 개인용 지도입니다. GitHub Pages로 정적 배포됩니다.
+지도를 움직이면 Spring Boot 백엔드가 지도 중심의 행정동을 알아내고(OSM Nominatim 역지오코딩), 카카오맵 검색을 프록시해 해당 지역 음식점·카페를 **카카오 평점과 함께 실시간**으로 표시합니다. 네이버 평점은 오프라인 수집분(`data/ratings.json`)을 병합해 함께 보여줍니다. 프론트는 Leaflet 기반이라 **API 키 없이 바로 실행**됩니다.
 
 ## 기술 스택
 
 <p>
+  <img src="https://img.shields.io/badge/Java%2021-007396.svg?style=for-the-badge&logo=openjdk&logoColor=white" />
+  <img src="https://img.shields.io/badge/Spring%20Boot%204-6DB33F.svg?style=for-the-badge&logo=springboot&logoColor=white" />
+  <img src="https://img.shields.io/badge/Gradle-02303A.svg?style=for-the-badge&logo=gradle&logoColor=white" />
+  <img src="https://img.shields.io/badge/Leaflet-199900.svg?style=for-the-badge&logo=leaflet&logoColor=white" />
   <img src="https://img.shields.io/badge/JavaScript-F7DF1E.svg?style=for-the-badge&logo=javascript&logoColor=black" />
-  <img src="https://img.shields.io/badge/HTML5-E34F26.svg?style=for-the-badge&logo=html5&logoColor=white" />
-  <img src="https://img.shields.io/badge/CSS3-1572B6.svg?style=for-the-badge&logo=css3&logoColor=white" />
   <img src="https://img.shields.io/badge/Python-3776AB.svg?style=for-the-badge&logo=python&logoColor=white" />
-  <img src="https://img.shields.io/badge/Kakao%20Maps-FEE500.svg?style=for-the-badge&logo=kakao&logoColor=black" />
   <img src="https://img.shields.io/badge/GitHub%20Actions-2088FF.svg?style=for-the-badge&logo=githubactions&logoColor=white" />
-  <img src="https://img.shields.io/badge/GitHub%20Pages-222222.svg?style=for-the-badge&logo=githubpages&logoColor=white" />
 </p>
 
 ## 주요 기능
 
-- **실시간 뷰포트 검색**: 지도를 움직이면 현재 영역의 음식점(FD6)·카페(CE7)를 즉시 표시 (카카오 공식 SDK)
-- **평점 병기**: 마커 클릭 시 카카오 ★평점(참여 수)과 네이버 ★평점/방문자·블로그 리뷰 수를 함께 표시
-- **평점 라벨**: 캐시에 평점이 있는 장소는 마커 위에 `K 4.2 · N 4.5` 라벨 표시
+- **실시간 뷰포트 검색**: 지도 이동 시 백엔드가 `행정동 + 카페/음식점` 검색을 프록시해 평점 포함 결과 반환
+- **평점 병기**: 마커 라벨에 `K 4.2 · N 4.5`, 팝업에 카카오 ★평점(참여수·리뷰수)과 네이버 평점/방문자리뷰 표시
 - **필터**: 음식점/카페 토글, 카카오 최소 평점(3.5+/4.0+/4.5+) 필터
-- **딥링크**: 카카오맵/네이버지도 상세 페이지로 바로 이동
-- **평점 수집기**: `collector/collect.py`(카카오), `collector/naver_match.py`(네이버, Playwright)
+- **딥링크**: 카카오맵/네이버지도 상세 페이지 바로가기
+- **캐싱**: 역지오코딩 24시간, 검색 결과 10분 메모리 캐시 (상위 서비스 부하 최소화)
+- **네이버 수집기**: `collector/naver_match.py` (Playwright, 좌표 검증 매칭, 차단 감지 시 자동 중단)
 
 ## 설치 및 실행
 
-### 1. 카카오 JavaScript 키 설정
-
-1. [Kakao Developers](https://developers.kakao.com)에서 앱 생성
-2. 앱 설정 > 플랫폼 > Web에 `http://localhost:8000`, `https://tjdckscert.github.io` 등록
-3. `js/config.js`의 `KAKAO_JS_KEY`에 JavaScript 키 입력
-
-### 2. 로컬 실행
+JDK 21 필요 (Eclipse Adoptium 권장).
 
 ```bash
-python -m http.server 8000
-# → http://localhost:8000
+# Windows
+run.bat
+
+# 또는 직접
+./gradlew bootRun
 ```
 
-### 3. 평점 수집 (로컬에서 실행)
+→ http://localhost:8890 접속. API 키 설정 없이 바로 동작합니다.
+
+### 네이버 평점 수집 (선택)
 
 ```bash
-# 카카오 평점 수집 (지역·키워드별)
-python collector/collect.py "강남역 카페" "강남역 음식점" --pages 5
+# 1) 수집 대상 시딩 (카카오 장소 목록을 data/ratings.json에 저장)
+python collector/collect.py "강남역 카페" "강남역 음식점" --pages 4
 
-# 네이버 평점 매칭 (실험적 — Playwright 필요)
+# 2) 네이버 평점 매칭 (Playwright 실브라우저, 저속)
 pip install playwright && playwright install chromium
 python collector/naver_match.py --limit 30
 ```
 
-수집 후 `data/ratings.json`을 커밋/푸시하면 Actions가 Pages에 자동 배포합니다.
+수집 후 서버를 재시작하면 네이버 평점이 지도에 함께 표시됩니다.
 
-> ⚠️ 평점 수집은 비공식 엔드포인트를 사용하는 개인용 기능입니다. 저속(요청 간 대기)으로만 실행하고, 데이터의 외부 서비스 제공에는 사용하지 마세요.
+> ⚠️ 평점 조회는 비공식 엔드포인트를 경유하는 개인용 기능입니다. 캐싱을 켠 채 저속으로만 사용하고, 외부 공개 서비스에는 사용하지 마세요.
+
+## API
+
+| 엔드포인트 | 설명 |
+|---|---|
+| `GET /api/places?lat=37.498&lng=127.028&categories=food,cafe` | 좌표 주변 음식점/카페 + 평점 |
 
 ## Git Flow
 
@@ -68,21 +73,31 @@ gitGraph
   commit id: "initial scaffold"
   branch develop
   checkout develop
-  commit id: "develop start"
+  branch feature/springboot-rewrite
+  checkout feature/springboot-rewrite
+  commit id: "springboot rewrite"
+  checkout develop
+  merge feature/springboot-rewrite
 ```
 
 ## 프로젝트 구조
 
 ```
 API Map/
-├── index.html              # 지도 페이지
-├── css/style.css           # 스타일
-├── js/
-│   ├── config.js           # 카카오 JS 키 설정
-│   └── app.js              # 지도 + 실시간 검색 + 평점 매칭
-├── data/ratings.json       # 평점 캐시 (수집기로 갱신)
+├── src/main/java/com/apimap/
+│   ├── ApimapApplication.java
+│   └── place/
+│       ├── PlaceController.java   # GET /api/places
+│       ├── PlaceService.java      # 역지오코딩 + 카카오 검색 프록시 + 캐시
+│       ├── NaverStore.java        # 네이버 평점 캐시(data/ratings.json) 로더
+│       └── Place.java
+├── src/main/resources/
+│   ├── static/                    # Leaflet 프론트엔드
+│   └── application.yml            # 포트 8890
 ├── collector/
-│   ├── collect.py          # 카카오 장소+평점 수집기
-│   └── naver_match.py      # 네이버 평점 매칭 (실험적)
-└── .github/workflows/deploy.yml  # Pages 자동 배포
+│   ├── collect.py                 # 카카오 장소 시딩
+│   └── naver_match.py             # 네이버 평점 매칭 (실험적)
+├── data/ratings.json              # 네이버 평점 수집분
+├── run.bat                        # Windows 실행 스크립트
+└── .github/workflows/ci.yml       # Gradle 빌드 CI
 ```
