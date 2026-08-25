@@ -31,4 +31,10 @@ public class PlaceController {
             @RequestParam(defaultValue = "food,cafe") List<String> categories) {
         return placeService.findPlaces(swLat, swLng, neLat, neLng, categories);
     }
+
+    /** 검색창: 장소/지역 자유 검색. 예: /api/search?q=홍대 카페 */
+    @GetMapping("/search")
+    public Map<String, Object> search(@RequestParam String q) {
+        return Map.of("places", placeService.searchByQuery(q));
+    }
 }
