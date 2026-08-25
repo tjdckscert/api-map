@@ -1,6 +1,6 @@
 package com.apimap.place;
 
-import com.fasterxml.jackson.databind.JsonNode;
+import tools.jackson.databind.JsonNode;
 
 /** 지도에 표시할 장소 한 곳. kakao/naver 평점은 없으면 null. */
 public record Place(
