@@ -1,0 +1,1594 @@
+{
+ "2005375589": {
+  "name": "썸띵어바웃커피",
+  "category": "카페",
+  "lat": 37.50282478,
+  "lng": 127.02779848,
+  "address": "서울 강남구 강남대로102길 30",
+  "kakao": {
+   "rating": 3.6,
+   "count": 247,
+   "reviews": 2509
+  },
+  "naver": null,
+  "updated": "2026-08-26"
+ },
+ "426256498": {
+  "name": "집사의하루 강남점",
+  "category": "카페",
+  "lat": 37.50090575,
+  "lng": 127.02727641,
+  "address": "서울 강남구 테헤란로1길 40",
+  "kakao": {
+   "rating": 4.7,
+   "count": 132,
+   "reviews": 245
+  },
+  "naver": null,
+  "updated": "2026-08-26"
+ },
+ "14666479": {
+  "name": "브라운홀릭",
+  "category": "카페",
+  "lat": 37.50105498,
+  "lng": 127.02870255,
+  "address": "서울 강남구 강남대로98길 25",
+  "kakao": {
+   "rating": 3.3,
+   "count": 59,
+   "reviews": 117
+  },
+  "naver": null,
+  "updated": "2026-08-26"
+ },
+ "19232112": {
+  "name": "장꼬방",
+  "category": "카페",
+  "lat": 37.49833143,
+  "lng": 127.0238071,
+  "address": "서울 서초구 강남대로61길 27",
+  "kakao": {
+   "rating": 4.4,
+   "count": 183,
+   "reviews": 278
+  },
+  "naver": null,
+  "updated": "2026-08-26"
+ },
+ "1686974637": {
+  "name": "그레이스케일커피",
+  "category": "카페",
+  "lat": 37.50325355,
+  "lng": 127.02823744,
+  "address": "서울 강남구 강남대로102길 38",
+  "kakao": {
+   "rating": 3.6,
+   "count": 41,
+   "reviews": 55
+  },
+  "naver": null,
+  "updated": "2026-08-26"
+ },
+ "150499518": {
+  "name": "에이비카페",
+  "category": "카페",
+  "lat": 37.50289682,
+  "lng": 127.02793422,
+  "address": "서울 강남구 강남대로102길 32",
+  "kakao": {
+   "rating": 3.5,
+   "count": 181,
+   "reviews": 434
+  },
+  "naver": null,
+  "updated": "2026-08-26"
+ },
+ "1862219579": {
+  "name": "커피빈 강남역12번출구점",
+  "category": "카페",
+  "lat": 37.49884557,
+  "lng": 127.0293169,
+  "address": "서울 강남구 테헤란로 111",
+  "kakao": {
+   "rating": 4.4,
+   "count": 36,
+   "reviews": 35
+  },
+  "naver": null,
+  "updated": "2026-08-26"
+ },
+ "99889048": {
+  "name": "키이스케이프 로그인1",
+  "category": "카페",
+  "lat": 37.5007344,
+  "lng": 127.02797865,
+  "address": "서울 강남구 강남대로98길 16",
+  "kakao": {
+   "rating": 4.9,
+   "count": 17,
+   "reviews": 93
+  },
+  "naver": null,
+  "updated": "2026-08-26"
+ },
+ "131020261": {
+  "name": "레이지레이디 케이크",
+  "category": "카페",
+  "lat": 37.49763018,
+  "lng": 127.02900657,
+  "address": "서울 강남구 테헤란로4길 6",
+  "kakao": {
+   "rating": 4.4,
+   "count": 71,
+   "reviews": 87
+  },
+  "naver": null,
+  "updated": "2026-08-26"
+ },
+ "423350309": {
+  "name": "고양이카페 모카 강남점",
+  "category": "카페",
+  "lat": 37.50010386,
+  "lng": 127.02728856,
+  "address": "서울 강남구 테헤란로1길 29",
+  "kakao": {
+   "rating": 3.6,
+   "count": 82,
+   "reviews": 197
+  },
+  "naver": null,
+  "updated": "2026-08-26"
+ },
+ "1855109118": {
+  "name": "ART SPACE Y CAFE",
+  "category": "카페",
+  "lat": 37.50182723,
+  "lng": 127.02836018,
+  "address": "서울 강남구 강남대로100길 28",
+  "kakao": {
+   "rating": 4.7,
+   "count": 3,
+   "reviews": 24
+  },
+  "naver": null,
+  "updated": "2026-08-26"
+ },
+ "1466542951": {
+  "name": "셀렉티드닉스",
+  "category": "카페",
+  "lat": 37.49622235,
+  "lng": 127.03083799,
+  "address": "서울 강남구 테헤란로4길 37",
+  "kakao": {
+   "rating": 4.1,
+   "count": 298,
+   "reviews": 7145
+  },
+  "naver": null,
+  "updated": "2026-08-26"
+ },
+ "1154197674": {
+  "name": "소과당",
+  "category": "카페",
+  "lat": 37.49973426,
+  "lng": 127.02806874,
+  "address": "서울 강남구 강남대로96길 12",
+  "kakao": {
+   "rating": 3.3,
+   "count": 78,
+   "reviews": 485
+  },
+  "naver": null,
+  "updated": "2026-08-26"
+ },
+ "25736467": {
+  "name": "할리스 강남역점",
+  "category": "카페",
+  "lat": 37.49871619,
+  "lng": 127.02777434,
+  "address": "서울 강남구 강남대로 402",
+  "kakao": {
+   "rating": 3.1,
+   "count": 98,
+   "reviews": 66
+  },
+  "naver": null,
+  "updated": "2026-08-26"
+ },
+ "1462432484": {
+  "name": "카페 리퍼크",
+  "category": "카페",
+  "lat": 37.49704733,
+  "lng": 127.02862864,
+  "address": "서울 강남구 강남대로 382",
+  "kakao": {
+   "rating": 3.8,
+   "count": 35,
+   "reviews": 73
+  },
+  "naver": null,
+  "updated": "2026-08-26"
+ },
+ "2135547001": {
+  "name": "카페온화 강남점",
+  "category": "카페",
+  "lat": 37.5024393,
+  "lng": 127.02711073,
+  "address": "서울 강남구 봉은사로4길 37",
+  "kakao": {
+   "rating": 3.7,
+   "count": 58,
+   "reviews": 386
+  },
+  "naver": null,
+  "updated": "2026-08-26"
+ },
+ "1535299950": {
+  "name": "공차 강남본점",
+  "category": "카페",
+  "lat": 37.49895894,
+  "lng": 127.02993441,
+  "address": "서울 강남구 테헤란로 115",
+  "kakao": {
+   "rating": 3.0,
+   "count": 33,
+   "reviews": 179
+  },
+  "naver": null,
+  "updated": "2026-08-26"
+ },
+ "7961654": {
+  "name": "스타벅스 몬테소리점",
+  "category": "카페",
+  "lat": 37.49834158,
+  "lng": 127.02687402,
+  "address": "서울 서초구 강남대로 399",
+  "kakao": {
+   "rating": 4.2,
+   "count": 83,
+   "reviews": 33
+  },
+  "naver": null,
+  "updated": "2026-08-26"
+ },
+ "1526711403": {
+  "name": "구테로이테 신논현점",
+  "category": "카페",
+  "lat": 37.50311676,
+  "lng": 127.02752716,
+  "address": "서울 강남구 봉은사로6길 29",
+  "kakao": {
+   "rating": 3.5,
+   "count": 26,
+   "reviews": 80
+  },
+  "naver": null,
+  "updated": "2026-08-26"
+ },
+ "1654051615": {
+  "name": "사운즈커피 프리미어 강남",
+  "category": "카페",
+  "lat": 37.49505942,
+  "lng": 127.02979376,
+  "address": "서울 강남구 강남대로 358",
+  "kakao": {
+   "rating": 4.4,
+   "count": 38,
+   "reviews": 164
+  },
+  "naver": null,
+  "updated": "2026-08-26"
+ },
+ "1866626734": {
+  "name": "라운지엑스 24h 강남역점",
+  "category": "카페",
+  "lat": 37.49665539,
+  "lng": 127.02863301,
+  "address": "서울 강남구 강남대로 378",
+  "kakao": {
+   "rating": 3.5,
+   "count": 4,
+   "reviews": 81
+  },
+  "naver": null,
+  "updated": "2026-08-26"
+ },
+ "1429324904": {
+  "name": "퍼즐팩토리 강남점",
+  "category": "카페",
+  "lat": 37.50205013,
+  "lng": 127.02684821,
+  "address": "서울 강남구 강남대로102길 13",
+  "kakao": {
+   "rating": 2.9,
+   "count": 7,
+   "reviews": 127
+  },
+  "naver": null,
+  "updated": "2026-08-26"
+ },
+ "27347412": {
+  "name": "크라프트카페",
+  "category": "카페",
+  "lat": 37.50333636,
+  "lng": 127.0285858,
+  "address": "서울 강남구 강남대로102길 38-5",
+  "kakao": {
+   "rating": 4.1,
+   "count": 58,
+   "reviews": 123
+  },
+  "naver": null,
+  "updated": "2026-08-26"
+ },
+ "561053021": {
+  "name": "루프808",
+  "category": "카페",
+  "lat": 37.50432917,
+  "lng": 127.02506098,
+  "address": "서울 강남구 강남대로 470",
+  "kakao": {
+   "rating": 4.1,
+   "count": 154,
+   "reviews": 379
+  },
+  "naver": null,
+  "updated": "2026-08-26"
+ },
+ "27402054": {
+  "name": "폴바셋 강남삼성타운점",
+  "category": "카페",
+  "lat": 37.49585649,
+  "lng": 127.02736957,
+  "address": "서울 서초구 서초대로78길 22",
+  "kakao": {
+   "rating": 4.3,
+   "count": 54,
+   "reviews": 49
+  },
+  "naver": null,
+  "updated": "2026-08-26"
+ },
+ "1052653971": {
+  "name": "셀렉티드마롱",
+  "category": "카페",
+  "lat": 37.49619259,
+  "lng": 127.03091713,
+  "address": "서울 강남구 테헤란로4길 37",
+  "kakao": {
+   "rating": 3.2,
+   "count": 88,
+   "reviews": 263
+  },
+  "naver": null,
+  "updated": "2026-08-26"
+ },
+ "26624126": {
+  "name": "커피빈 강남역세계빌딩점",
+  "category": "카페",
+  "lat": 37.49861752,
+  "lng": 127.02582919,
+  "address": "서울 서초구 서초대로73길 12",
+  "kakao": {
+   "rating": 3.9,
+   "count": 20,
+   "reviews": 4
+  },
+  "naver": null,
+  "updated": "2026-08-26"
+ },
+ "1233664289": {
+  "name": "뉴욕러브베이글 강남본점",
+  "category": "카페",
+  "lat": 37.50260972,
+  "lng": 127.02654419,
+  "address": "서울 강남구 봉은사로2길 31",
+  "kakao": {
+   "rating": 3.6,
+   "count": 35,
+   "reviews": 222
+  },
+  "naver": null,
+  "updated": "2026-08-26"
+ },
+ "1345840219": {
+  "name": "제로월드 강남점",
+  "category": "카페",
+  "lat": 37.50093338,
+  "lng": 127.02458147,
+  "address": "서울 서초구 서초대로73길 40",
+  "kakao": {
+   "rating": 4.1,
+   "count": 63,
+   "reviews": 1376
+  },
+  "naver": null,
+  "updated": "2026-08-26"
+ },
+ "17101526": {
+  "name": "커피빈 강남역먹자골목점",
+  "category": "카페",
+  "lat": 37.50009845,
+  "lng": 127.02729195,
+  "address": "서울 강남구 테헤란로1길 29",
+  "kakao": {
+   "rating": 3.8,
+   "count": 33,
+   "reviews": 25
+  },
+  "naver": null,
+  "updated": "2026-08-26"
+ },
+ "2065134729": {
+  "name": "매머드익스프레스 국기원점",
+  "category": "카페",
+  "lat": 37.49956817,
+  "lng": 127.02932736,
+  "address": "서울 강남구 테헤란로5길 11",
+  "kakao": {
+   "rating": 4.3,
+   "count": 6,
+   "reviews": 1
+  },
+  "naver": null,
+  "updated": "2026-08-26"
+ },
+ "1556609550": {
+  "name": "스크렘",
+  "category": "카페",
+  "lat": 37.50372609,
+  "lng": 127.02646429,
+  "address": "서울 강남구 봉은사로4길 17",
+  "kakao": {
+   "rating": 3.6,
+   "count": 78,
+   "reviews": 510
+  },
+  "naver": null,
+  "updated": "2026-08-26"
+ },
+ "495658881": {
+  "name": "블루보틀 역삼카페",
+  "category": "카페",
+  "lat": 37.50003049,
+  "lng": 127.03237757,
+  "address": "서울 강남구 테헤란로 129",
+  "kakao": {
+   "rating": 4.0,
+   "count": 145,
+   "reviews": 186
+  },
+  "naver": null,
+  "updated": "2026-08-26"
+ },
+ "723298019": {
+  "name": "동락커피점 EXP",
+  "category": "카페",
+  "lat": 37.49770488,
+  "lng": 127.02936056,
+  "address": "서울 강남구 테헤란로4길 6",
+  "kakao": {
+   "rating": 5.0,
+   "count": 3,
+   "reviews": 9
+  },
+  "naver": null,
+  "updated": "2026-08-26"
+ },
+ "17884744": {
+  "name": "스타벅스 강남비젼타워점",
+  "category": "카페",
+  "lat": 37.49649026,
+  "lng": 127.02961679,
+  "address": "서울 강남구 테헤란로2길 27",
+  "kakao": {
+   "rating": 4.1,
+   "count": 63,
+   "reviews": 60
+  },
+  "naver": null,
+  "updated": "2026-08-26"
+ },
+ "1778307046": {
+  "name": "헤이티 강남점",
+  "category": "카페",
+  "lat": 37.50164299,
+  "lng": 127.02633576,
+  "address": "서울 강남구 강남대로 438",
+  "kakao": {
+   "rating": 3.6,
+   "count": 45,
+   "reviews": 31
+  },
+  "naver": null,
+  "updated": "2026-08-26"
+ },
+ "27464586": {
+  "name": "쉼스토리",
+  "category": "카페",
+  "lat": 37.49454553,
+  "lng": 127.03099335,
+  "address": "서울 강남구 역삼로3길 17",
+  "kakao": {
+   "rating": 4.4,
+   "count": 63,
+   "reviews": 136
+  },
+  "naver": null,
+  "updated": "2026-08-26"
+ },
+ "1116018239": {
+  "name": "어퍼앤언더",
+  "category": "카페",
+  "lat": 37.50273739,
+  "lng": 127.02772606,
+  "address": "서울 강남구 강남대로102길 28",
+  "kakao": {
+   "rating": 3.2,
+   "count": 121,
+   "reviews": 2469
+  },
+  "naver": null,
+  "updated": "2026-08-26"
+ },
+ "35026031": {
+  "name": "스타벅스 강남R점",
+  "category": "카페",
+  "lat": 37.49767447,
+  "lng": 127.02844342,
+  "address": "서울 강남구 강남대로 390",
+  "kakao": {
+   "rating": 4.1,
+   "count": 141,
+   "reviews": 228
+  },
+  "naver": null,
+  "updated": "2026-08-26"
+ },
+ "84268936": {
+  "name": "가배도 신논현점",
+  "category": "카페",
+  "lat": 37.50401452,
+  "lng": 127.02594415,
+  "address": "서울 강남구 강남대로110길 13",
+  "kakao": {
+   "rating": 3.5,
+   "count": 212,
+   "reviews": 403
+  },
+  "naver": null,
+  "updated": "2026-08-26"
+ },
+ "1905793258": {
+  "name": "매머드익스프레스 강남해커스타운점",
+  "category": "카페",
+  "lat": 37.49859041,
+  "lng": 127.02621368,
+  "address": "서울 서초구 서초대로77길 9",
+  "kakao": {
+   "rating": 3.6,
+   "count": 7,
+   "reviews": 9
+  },
+  "naver": null,
+  "updated": "2026-08-26"
+ },
+ "19038749": {
+  "name": "공차 강남역점",
+  "category": "카페",
+  "lat": 37.49798909,
+  "lng": 127.0277424,
+  "address": "서울 강남구 강남대로 지하 396",
+  "kakao": {
+   "rating": 3.1,
+   "count": 30,
+   "reviews": 6
+  },
+  "naver": null,
+  "updated": "2026-08-26"
+ },
+ "405367531": {
+  "name": "프라텔리",
+  "category": "카페",
+  "lat": 37.502843,
+  "lng": 127.02691635,
+  "address": "서울 강남구 봉은사로4길 31",
+  "kakao": {
+   "rating": 3.6,
+   "count": 87,
+   "reviews": 1329
+  },
+  "naver": null,
+  "updated": "2026-08-26"
+ },
+ "568167594": {
+  "name": "106길 15",
+  "category": "카페",
+  "lat": 37.50310701,
+  "lng": 127.02682597,
+  "address": "서울 강남구 강남대로106길 15",
+  "kakao": {
+   "rating": 4.3,
+   "count": 42,
+   "reviews": 162
+  },
+  "naver": null,
+  "updated": "2026-08-26"
+ },
+ "27413263": {
+  "name": "비트포비아 강남던전점",
+  "category": "카페",
+  "lat": 37.4975837,
+  "lng": 127.03111221,
+  "address": "서울 강남구 강남대로84길 33",
+  "kakao": {
+   "rating": 3.6,
+   "count": 50,
+   "reviews": 745
+  },
+  "naver": null,
+  "updated": "2026-08-26"
+ },
+ "1259936409": {
+  "name": "룸카페 바니",
+  "category": "카페",
+  "lat": 37.49973426,
+  "lng": 127.02806874,
+  "address": "서울 강남구 강남대로96길 12",
+  "kakao": {
+   "rating": 2.6,
+   "count": 19,
+   "reviews": 152
+  },
+  "naver": null,
+  "updated": "2026-08-26"
+ },
+ "2048665194": {
+  "name": "투썸플레이스 역삼성홍타워점",
+  "category": "카페",
+  "lat": 37.49967678,
+  "lng": 127.03422416,
+  "address": "서울 강남구 테헤란로 138",
+  "kakao": {
+   "rating": 3.1,
+   "count": 35,
+   "reviews": 81
+  },
+  "naver": null,
+  "updated": "2026-08-26"
+ },
+ "8102543": {
+  "name": "커피빈 강남대로점",
+  "category": "카페",
+  "lat": 37.49557695,
+  "lng": 127.02834763,
+  "address": "서울 서초구 강남대로 369",
+  "kakao": {
+   "rating": 3.3,
+   "count": 27,
+   "reviews": 24
+  },
+  "naver": null,
+  "updated": "2026-08-26"
+ },
+ "432783661": {
+  "name": "스타벅스 케이스퀘어강남점",
+  "category": "카페",
+  "lat": 37.49919632,
+  "lng": 127.02822687,
+  "address": "서울 강남구 강남대로94길 10",
+  "kakao": {
+   "rating": 3.2,
+   "count": 24,
+   "reviews": 63
+  },
+  "naver": null,
+  "updated": "2026-08-26"
+ },
+ "166075912": {
+  "name": "바나프레소 강남역점",
+  "category": "카페",
+  "lat": 37.49884011,
+  "lng": 127.02951367,
+  "address": "서울 강남구 테헤란로 113",
+  "kakao": {
+   "rating": 3.7,
+   "count": 25,
+   "reviews": 44
+  },
+  "naver": null,
+  "updated": "2026-08-26"
+ },
+ "23254386": {
+  "name": "더달달",
+  "category": "카페",
+  "lat": 37.50319222,
+  "lng": 127.02848623,
+  "address": "서울 강남구 강남대로102길 38-6",
+  "kakao": {
+   "rating": 4.0,
+   "count": 147,
+   "reviews": 822
+  },
+  "naver": null,
+  "updated": "2026-08-26"
+ },
+ "2079009663": {
+  "name": "벤티프레소 강남점",
+  "category": "카페",
+  "lat": 37.49970149,
+  "lng": 127.02558077,
+  "address": "서울 서초구 서초대로77길 17",
+  "kakao": {
+   "rating": 4.7,
+   "count": 3,
+   "reviews": 0
+  },
+  "naver": null,
+  "updated": "2026-08-26"
+ },
+ "22837049": {
+  "name": "알베르",
+  "category": "카페",
+  "lat": 37.50305626,
+  "lng": 127.02810279,
+  "address": "서울 강남구 강남대로102길 34",
+  "kakao": null,
+  "naver": null,
+  "updated": "2026-08-26"
+ },
+ "684431321": {
+  "name": "차백도 강남역2호점",
+  "category": "카페",
+  "lat": 37.49490924,
+  "lng": 127.02861539,
+  "address": "서울 서초구 강남대로 359",
+  "kakao": {
+   "rating": 2.8,
+   "count": 9,
+   "reviews": 36
+  },
+  "naver": null,
+  "updated": "2026-08-26"
+ },
+ "1997070087": {
+  "name": "차지 강남플래그십점",
+  "category": "카페",
+  "lat": 37.49900208,
+  "lng": 127.02659154,
+  "address": "서울 서초구 강남대로 407",
+  "kakao": {
+   "rating": 2.0,
+   "count": 137,
+   "reviews": 625
+  },
+  "naver": null,
+  "updated": "2026-08-26"
+ },
+ "1385440957": {
+  "name": "히히냥냥",
+  "category": "카페",
+  "lat": 37.50189511,
+  "lng": 127.02704267,
+  "address": "서울 강남구 강남대로102길 14",
+  "kakao": {
+   "rating": 4.8,
+   "count": 50,
+   "reviews": 187
+  },
+  "naver": null,
+  "updated": "2026-08-26"
+ },
+ "493947916": {
+  "name": "투썸플레이스 강남IBC점",
+  "category": "카페",
+  "lat": 37.49972632,
+  "lng": 127.03100454,
+  "address": "서울 강남구 테헤란로7길 8",
+  "kakao": {
+   "rating": 3.1,
+   "count": 23,
+   "reviews": 10
+  },
+  "naver": null,
+  "updated": "2026-08-26"
+ },
+ "171959126": {
+  "name": "할리스 강남역2점",
+  "category": "카페",
+  "lat": 37.50039585,
+  "lng": 127.02698333,
+  "address": "서울 강남구 강남대로 422",
+  "kakao": {
+   "rating": 3.5,
+   "count": 22,
+   "reviews": 50
+  },
+  "naver": null,
+  "updated": "2026-08-26"
+ },
+ "11306012": {
+  "name": "스타벅스 강남서초초교점",
+  "category": "카페",
+  "lat": 37.5001583,
+  "lng": 127.02555265,
+  "address": "서울 서초구 서초대로77길 27",
+  "kakao": {
+   "rating": 3.4,
+   "count": 79,
+   "reviews": 53
+  },
+  "naver": null,
+  "updated": "2026-08-26"
+ },
+ "1080888736": {
+  "name": "더그릭베어 강남N타워점",
+  "category": "카페",
+  "lat": 37.49993228,
+  "lng": 127.03236735,
+  "address": "서울 강남구 테헤란로 129",
+  "kakao": {
+   "rating": 4.9,
+   "count": 7,
+   "reviews": 181
+  },
+  "naver": null,
+  "updated": "2026-08-26"
+ },
+ "13575898": {
+  "name": "갓덴스시 강남점",
+  "category": "일식",
+  "lat": 37.49877715,
+  "lng": 127.0290907,
+  "address": "서울 강남구 테헤란로 109",
+  "kakao": {
+   "rating": 4.1,
+   "count": 388,
+   "reviews": 560
+  },
+  "naver": null,
+  "updated": "2026-08-26"
+ },
+ "1193848374": {
+  "name": "쉐이크쉑 강남대로점",
+  "category": "패스트푸드",
+  "lat": 37.50008879,
+  "lng": 127.02616218,
+  "address": "서울 서초구 강남대로 421",
+  "kakao": {
+   "rating": 3.3,
+   "count": 331,
+   "reviews": 258
+  },
+  "naver": null,
+  "updated": "2026-08-26"
+ },
+ "1233419939": {
+  "name": "최가네샤브샤브버섯칼국수 강남직영점",
+  "category": "샤브샤브",
+  "lat": 37.49942949,
+  "lng": 127.02903554,
+  "address": "서울 강남구 강남대로94길 20",
+  "kakao": {
+   "rating": 4.5,
+   "count": 15,
+   "reviews": 440
+  },
+  "naver": null,
+  "updated": "2026-08-26"
+ },
+ "785573131": {
+  "name": "일편등심 강남",
+  "category": "한식",
+  "lat": 37.49959737,
+  "lng": 127.0278199,
+  "address": "서울 강남구 테헤란로1길 20",
+  "kakao": {
+   "rating": 4.7,
+   "count": 119,
+   "reviews": 1141
+  },
+  "naver": null,
+  "updated": "2026-08-26"
+ },
+ "1238400864": {
+  "name": "땀땀 본점",
+  "category": "아시아음식",
+  "lat": 37.50040283,
+  "lng": 127.02797852,
+  "address": "서울 강남구 강남대로98길 12-5",
+  "kakao": {
+   "rating": 3.6,
+   "count": 744,
+   "reviews": 1392
+  },
+  "naver": null,
+  "updated": "2026-08-26"
+ },
+ "22211960": {
+  "name": "로리스더프라임립",
+  "category": "양식",
+  "lat": 37.49808141,
+  "lng": 127.02590025,
+  "address": "서울 서초구 서초대로 411",
+  "kakao": {
+   "rating": 3.8,
+   "count": 76,
+   "reviews": 505
+  },
+  "naver": null,
+  "updated": "2026-08-26"
+ },
+ "905303861": {
+  "name": "팔도밀방 강남본점",
+  "category": "한식",
+  "lat": 37.49952969,
+  "lng": 127.02825526,
+  "address": "서울 강남구 강남대로94길 11",
+  "kakao": {
+   "rating": 4.4,
+   "count": 34,
+   "reviews": 843
+  },
+  "naver": null,
+  "updated": "2026-08-26"
+ },
+ "353333104": {
+  "name": "떡도리탕 강남본점",
+  "category": "한식",
+  "lat": 37.50050011,
+  "lng": 127.02807808,
+  "address": "서울 강남구 테헤란로1길 28-9",
+  "kakao": {
+   "rating": 3.6,
+   "count": 302,
+   "reviews": 1788
+  },
+  "naver": null,
+  "updated": "2026-08-26"
+ },
+ "1553460369": {
+  "name": "해담아구찜&해물찜",
+  "category": "한식",
+  "lat": 37.49987846,
+  "lng": 127.02790482,
+  "address": "서울 강남구 강남대로96길 11",
+  "kakao": {
+   "rating": 4.9,
+   "count": 191,
+   "reviews": 40
+  },
+  "naver": null,
+  "updated": "2026-08-26"
+ },
+ "21440993": {
+  "name": "더막창스 강남본점",
+  "category": "한식",
+  "lat": 37.50089454,
+  "lng": 127.02503382,
+  "address": "서울 서초구 서초대로77길 37",
+  "kakao": {
+   "rating": 4.3,
+   "count": 351,
+   "reviews": 1240
+  },
+  "naver": null,
+  "updated": "2026-08-26"
+ },
+ "1912522814": {
+  "name": "베트남이랑",
+  "category": "아시아음식",
+  "lat": 37.49894904,
+  "lng": 127.02609506,
+  "address": "서울 서초구 서초대로77길 15",
+  "kakao": {
+   "rating": 3.5,
+   "count": 169,
+   "reviews": 649
+  },
+  "naver": null,
+  "updated": "2026-08-26"
+ },
+ "1428481536": {
+  "name": "강남진해장",
+  "category": "한식",
+  "lat": 37.49958439,
+  "lng": 127.02930814,
+  "address": "서울 강남구 테헤란로5길 11",
+  "kakao": {
+   "rating": 3.3,
+   "count": 219,
+   "reviews": 501
+  },
+  "naver": null,
+  "updated": "2026-08-26"
+ },
+ "1816543690": {
+  "name": "내가찜한닭 강남역점",
+  "category": "한식",
+  "lat": 37.49985507,
+  "lng": 127.02773404,
+  "address": "서울 강남구 강남대로96길 9",
+  "kakao": {
+   "rating": 3.9,
+   "count": 49,
+   "reviews": 436
+  },
+  "naver": null,
+  "updated": "2026-08-26"
+ },
+ "20158623": {
+  "name": "와인코르크",
+  "category": "술집",
+  "lat": 37.50090395,
+  "lng": 127.02727755,
+  "address": "서울 강남구 테헤란로1길 40",
+  "kakao": {
+   "rating": 4.2,
+   "count": 32,
+   "reviews": 48
+  },
+  "naver": null,
+  "updated": "2026-08-26"
+ },
+ "11463001": {
+  "name": "알부자 강남본점",
+  "category": "한식",
+  "lat": 37.500702,
+  "lng": 127.02782031,
+  "address": "서울 강남구 강남대로98길 14",
+  "kakao": {
+   "rating": 3.6,
+   "count": 187,
+   "reviews": 684
+  },
+  "naver": null,
+  "updated": "2026-08-26"
+ },
+ "929201336": {
+  "name": "스터번",
+  "category": "양식",
+  "lat": 37.49988686,
+  "lng": 127.03038714,
+  "address": "서울 강남구 테헤란로7길 11",
+  "kakao": {
+   "rating": 4.6,
+   "count": 52,
+   "reviews": 118
+  },
+  "naver": null,
+  "updated": "2026-08-26"
+ },
+ "1950857675": {
+  "name": "오레노라멘 강남점",
+  "category": "일식",
+  "lat": 37.50050372,
+  "lng": 127.02807808,
+  "address": "서울 강남구 테헤란로1길 28-9",
+  "kakao": {
+   "rating": 4.2,
+   "count": 326,
+   "reviews": 1348
+  },
+  "naver": null,
+  "updated": "2026-08-26"
+ },
+ "245883768": {
+  "name": "주신당 강남점",
+  "category": "한식",
+  "lat": 37.49985778,
+  "lng": 127.02773631,
+  "address": "서울 강남구 강남대로96길 9",
+  "kakao": {
+   "rating": 4.3,
+   "count": 146,
+   "reviews": 750
+  },
+  "naver": null,
+  "updated": "2026-08-26"
+ },
+ "2105479206": {
+  "name": "차슈밍",
+  "category": "중식",
+  "lat": 37.49973855,
+  "lng": 127.02896102,
+  "address": "서울 강남구 강남대로94길 21",
+  "kakao": {
+   "rating": 4.0,
+   "count": 71,
+   "reviews": 711
+  },
+  "naver": null,
+  "updated": "2026-08-26"
+ },
+ "1804968253": {
+  "name": "미도인 강남",
+  "category": "퓨전요리",
+  "lat": 37.50210141,
+  "lng": 127.02718751,
+  "address": "서울 강남구 강남대로102길 16",
+  "kakao": {
+   "rating": 3.6,
+   "count": 229,
+   "reviews": 970
+  },
+  "naver": null,
+  "updated": "2026-08-26"
+ },
+ "1222909923": {
+  "name": "강남복칼국수",
+  "category": "한식",
+  "lat": 37.49550243,
+  "lng": 127.02724166,
+  "address": "서울 서초구 서초대로74길 23",
+  "kakao": {
+   "rating": 4.0,
+   "count": 66,
+   "reviews": 281
+  },
+  "naver": null,
+  "updated": "2026-08-26"
+ },
+ "12997393": {
+  "name": "칼맞은삼겹살 강남본점",
+  "category": "한식",
+  "lat": 37.50052239,
+  "lng": 127.02519767,
+  "address": "서울 서초구 서초대로75길 34",
+  "kakao": {
+   "rating": 3.4,
+   "count": 59,
+   "reviews": 79
+  },
+  "naver": null,
+  "updated": "2026-08-26"
+ },
+ "166590741": {
+  "name": "남소관 우육도삭면",
+  "category": "중식",
+  "lat": 37.49960284,
+  "lng": 127.02751682,
+  "address": "서울 강남구 테헤란로1길 19",
+  "kakao": {
+   "rating": 3.2,
+   "count": 200,
+   "reviews": 1597
+  },
+  "naver": null,
+  "updated": "2026-08-26"
+ },
+ "1697940758": {
+  "name": "비어룸",
+  "category": "양식",
+  "lat": 37.50082348,
+  "lng": 127.02847176,
+  "address": "서울 강남구 강남대로98길 22",
+  "kakao": {
+   "rating": 3.7,
+   "count": 73,
+   "reviews": 299
+  },
+  "naver": null,
+  "updated": "2026-08-26"
+ },
+ "528537292": {
+  "name": "훠궈나라 강남점",
+  "category": "중식",
+  "lat": 37.50243223,
+  "lng": 127.02652716,
+  "address": "서울 강남구 봉은사로2길 35",
+  "kakao": {
+   "rating": 3.6,
+   "count": 106,
+   "reviews": 459
+  },
+  "naver": null,
+  "updated": "2026-08-26"
+ },
+ "1874563101": {
+  "name": "보배반점 강남직영점",
+  "category": "중식",
+  "lat": 37.49969986,
+  "lng": 127.02875971,
+  "address": "서울 강남구 강남대로94길 19",
+  "kakao": {
+   "rating": 3.0,
+   "count": 48,
+   "reviews": 207
+  },
+  "naver": null,
+  "updated": "2026-08-26"
+ },
+ "770095922": {
+  "name": "청류벽",
+  "category": "한식",
+  "lat": 37.49490503,
+  "lng": 127.02736583,
+  "address": "서울 서초구 서초대로74길 29",
+  "kakao": {
+   "rating": 3.4,
+   "count": 187,
+   "reviews": 454
+  },
+  "naver": null,
+  "updated": "2026-08-26"
+ },
+ "22716674": {
+  "name": "노랑저고리 강남점",
+  "category": "한식",
+  "lat": 37.49829327,
+  "lng": 127.02534846,
+  "address": "서울 서초구 서초대로73길 9",
+  "kakao": {
+   "rating": 3.5,
+   "count": 70,
+   "reviews": 568
+  },
+  "naver": null,
+  "updated": "2026-08-26"
+ },
+ "16421356": {
+  "name": "농민백암순대 강남직영점",
+  "category": "한식",
+  "lat": 37.49491301,
+  "lng": 127.03150463,
+  "address": "서울 강남구 역삼로3길 20-4",
+  "kakao": {
+   "rating": 4.5,
+   "count": 632,
+   "reviews": 830
+  },
+  "naver": null,
+  "updated": "2026-08-26"
+ },
+ "1111006760": {
+  "name": "원조부안집 강남점",
+  "category": "한식",
+  "lat": 37.50015762,
+  "lng": 127.02855519,
+  "address": "서울 강남구 강남대로96길 19",
+  "kakao": {
+   "rating": 3.7,
+   "count": 38,
+   "reviews": 43
+  },
+  "naver": null,
+  "updated": "2026-08-26"
+ },
+ "1815309929": {
+  "name": "멘노아지",
+  "category": "일식",
+  "lat": 37.49985284,
+  "lng": 127.02950729,
+  "address": "서울 강남구 강남대로94길 27",
+  "kakao": {
+   "rating": 4.0,
+   "count": 130,
+   "reviews": 394
+  },
+  "naver": null,
+  "updated": "2026-08-26"
+ },
+ "1188993005": {
+  "name": "육미당몽산",
+  "category": "한식",
+  "lat": 37.50009102,
+  "lng": 127.02824077,
+  "address": "서울 강남구 강남대로96길 15",
+  "kakao": {
+   "rating": 4.2,
+   "count": 13,
+   "reviews": 1219
+  },
+  "naver": null,
+  "updated": "2026-08-26"
+ },
+ "1203567126": {
+  "name": "사가라멘 강남역점",
+  "category": "일식",
+  "lat": 37.49859041,
+  "lng": 127.02621368,
+  "address": "서울 서초구 서초대로77길 9",
+  "kakao": {
+   "rating": 3.8,
+   "count": 114,
+   "reviews": 135
+  },
+  "naver": null,
+  "updated": "2026-08-26"
+ },
+ "1890287094": {
+  "name": "반티엔야오 카오위 강남점",
+  "category": "중식",
+  "lat": 37.49843286,
+  "lng": 127.02562897,
+  "address": "서울 서초구 서초대로73길 12",
+  "kakao": {
+   "rating": 4.3,
+   "count": 127,
+   "reviews": 582
+  },
+  "naver": null,
+  "updated": "2026-08-26"
+ },
+ "1372079546": {
+  "name": "하이디라오 서초점",
+  "category": "샤브샤브",
+  "lat": 37.50256415,
+  "lng": 127.0248014,
+  "address": "서울 서초구 서초대로77길 54",
+  "kakao": {
+   "rating": 4.2,
+   "count": 448,
+   "reviews": 944
+  },
+  "naver": null,
+  "updated": "2026-08-26"
+ },
+ "260283466": {
+  "name": "구구당",
+  "category": "중식",
+  "lat": 37.50324283,
+  "lng": 127.02785744,
+  "address": "서울 강남구 강남대로102길 35",
+  "kakao": {
+   "rating": 3.6,
+   "count": 320,
+   "reviews": 2280
+  },
+  "naver": null,
+  "updated": "2026-08-26"
+ },
+ "105571085": {
+  "name": "고메스시",
+  "category": "일식",
+  "lat": 37.50001006,
+  "lng": 127.02767077,
+  "address": "서울 강남구 테헤란로1길 26",
+  "kakao": {
+   "rating": 3.7,
+   "count": 117,
+   "reviews": 267
+  },
+  "naver": null,
+  "updated": "2026-08-26"
+ },
+ "1082092321": {
+  "name": "순남시래기 신논현역점",
+  "category": "한식",
+  "lat": 37.50235692,
+  "lng": 127.02479342,
+  "address": "서울 서초구 강남대로 449-3",
+  "kakao": {
+   "rating": 4.3,
+   "count": 60,
+   "reviews": 71
+  },
+  "naver": null,
+  "updated": "2026-08-26"
+ },
+ "8263107": {
+  "name": "던킨 원더스강남점",
+  "category": "간식",
+  "lat": 37.49604012,
+  "lng": 127.02811146,
+  "address": "서울 서초구 강남대로 373",
+  "kakao": {
+   "rating": 3.7,
+   "count": 114,
+   "reviews": 566
+  },
+  "naver": null,
+  "updated": "2026-08-26"
+ },
+ "1725176424": {
+  "name": "파이브가이즈 강남",
+  "category": "양식",
+  "lat": 37.50117734,
+  "lng": 127.02556092,
+  "address": "서울 서초구 강남대로 435",
+  "kakao": {
+   "rating": 3.2,
+   "count": 625,
+   "reviews": 3581
+  },
+  "naver": null,
+  "updated": "2026-08-26"
+ },
+ "1519347464": {
+  "name": "광양본가 강남역국기원사거리본점",
+  "category": "한식",
+  "lat": 37.49894941,
+  "lng": 127.03189422,
+  "address": "서울 강남구 테헤란로 124",
+  "kakao": {
+   "rating": 4.0,
+   "count": 39,
+   "reviews": 46
+  },
+  "naver": null,
+  "updated": "2026-08-26"
+ },
+ "2015368549": {
+  "name": "윤이불닭발 강남점",
+  "category": "한식",
+  "lat": 37.49982342,
+  "lng": 127.02824633,
+  "address": "서울 강남구 강남대로96길 16",
+  "kakao": {
+   "rating": 4.5,
+   "count": 74,
+   "reviews": 500
+  },
+  "naver": null,
+  "updated": "2026-08-26"
+ },
+ "27511865": {
+  "name": "봉우이층집",
+  "category": "한식",
+  "lat": 37.50178871,
+  "lng": 127.02739096,
+  "address": "서울 강남구 봉은사로18길 76",
+  "kakao": {
+   "rating": 3.8,
+   "count": 123,
+   "reviews": 604
+  },
+  "naver": null,
+  "updated": "2026-08-26"
+ },
+ "2067977577": {
+  "name": "안안 강남직영점",
+  "category": "아시아음식",
+  "lat": 37.49943828,
+  "lng": 127.02991537,
+  "address": "서울 강남구 강남대로92길 31",
+  "kakao": {
+   "rating": 3.8,
+   "count": 29,
+   "reviews": 662
+  },
+  "naver": null,
+  "updated": "2026-08-26"
+ },
+ "12418029": {
+  "name": "을밀대 강남점",
+  "category": "한식",
+  "lat": 37.49565223,
+  "lng": 127.02997832,
+  "address": "서울 강남구 테헤란로4길 46",
+  "kakao": {
+   "rating": 3.6,
+   "count": 273,
+   "reviews": 374
+  },
+  "naver": null,
+  "updated": "2026-08-26"
+ },
+ "2075704772": {
+  "name": "두끼 강남역점",
+  "category": "분식",
+  "lat": 37.50073996,
+  "lng": 127.02733064,
+  "address": "서울 강남구 강남대로98길 9",
+  "kakao": {
+   "rating": 3.9,
+   "count": 14,
+   "reviews": 92
+  },
+  "naver": null,
+  "updated": "2026-08-26"
+ },
+ "1234428523": {
+  "name": "패왕훠궈 강남역점",
+  "category": "중식",
+  "lat": 37.50025927,
+  "lng": 127.0253299,
+  "address": "서울 서초구 강남대로65길 7",
+  "kakao": {
+   "rating": 4.3,
+   "count": 24,
+   "reviews": 293
+  },
+  "naver": null,
+  "updated": "2026-08-26"
+ },
+ "56929632": {
+  "name": "신도세기 강남역점",
+  "category": "한식",
+  "lat": 37.49577536,
+  "lng": 127.02756404,
+  "address": "서울 서초구 서초대로78길 22",
+  "kakao": {
+   "rating": 3.3,
+   "count": 64,
+   "reviews": 136
+  },
+  "naver": null,
+  "updated": "2026-08-26"
+ },
+ "840177469": {
+  "name": "무한숯불양꼬치",
+  "category": "중식",
+  "lat": 37.5022412,
+  "lng": 127.02661304,
+  "address": "서울 강남구 봉은사로2길 37",
+  "kakao": {
+   "rating": 3.1,
+   "count": 67,
+   "reviews": 151
+  },
+  "naver": null,
+  "updated": "2026-08-26"
+ },
+ "225344792": {
+  "name": "육품 강남본점",
+  "category": "한식",
+  "lat": 37.500311,
+  "lng": 127.02765053,
+  "address": "서울 강남구 테헤란로1길 28-1",
+  "kakao": {
+   "rating": 4.3,
+   "count": 30,
+   "reviews": 156
+  },
+  "naver": null,
+  "updated": "2026-08-26"
+ },
+ "831871202": {
+  "name": "샤브로21 강남점",
+  "category": "샤브샤브",
+  "lat": 37.50231597,
+  "lng": 127.0266764,
+  "address": "서울 강남구 강남대로102길 13-5",
+  "kakao": {
+   "rating": 4.4,
+   "count": 88,
+   "reviews": 263
+  },
+  "naver": null,
+  "updated": "2026-08-26"
+ },
+ "1081081284": {
+  "name": "한과와락",
+  "category": "간식",
+  "lat": 37.50292854,
+  "lng": 127.02715162,
+  "address": "서울 강남구 봉은사로4길 31-5",
+  "kakao": {
+   "rating": 4.1,
+   "count": 67,
+   "reviews": 1323
+  },
+  "naver": null,
+  "updated": "2026-08-26"
+ },
+ "1953827489": {
+  "name": "더미뇽 서울",
+  "category": "양식",
+  "lat": 37.50270773,
+  "lng": 127.02742522,
+  "address": "서울 강남구 강남대로102길 25",
+  "kakao": {
+   "rating": 3.2,
+   "count": 37,
+   "reviews": 1210
+  },
+  "naver": null,
+  "updated": "2026-08-26"
+ },
+ "13499124": {
+  "name": "아실라",
+  "category": "양식",
+  "lat": 37.5007398,
+  "lng": 127.02797978,
+  "address": "서울 강남구 강남대로98길 16",
+  "kakao": {
+   "rating": 3.6,
+   "count": 30,
+   "reviews": 208
+  },
+  "naver": null,
+  "updated": "2026-08-26"
+ }
+}

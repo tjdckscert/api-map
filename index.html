@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>API Map — 음식점·카페 평점 지도</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div id="map"></div>
+
+  <div id="controls">
+    <div class="control-group">
+      <label class="toggle">
+        <input type="checkbox" id="chk-food" checked />
+        <span class="chip food">음식점</span>
+      </label>
+      <label class="toggle">
+        <input type="checkbox" id="chk-cafe" checked />
+        <span class="chip cafe">카페</span>
+      </label>
+    </div>
+    <div class="control-group">
+      <label for="min-rating">카카오 평점</label>
+      <select id="min-rating">
+        <option value="0">전체</option>
+        <option value="3.5">3.5+</option>
+        <option value="4.0">4.0+</option>
+        <option value="4.5">4.5+</option>
+      </select>
+    </div>
+    <div id="status"></div>
+  </div>
+
+  <div id="setup-notice" hidden>
+    <div class="notice-card">
+      <h2>카카오 JavaScript 키가 필요합니다</h2>
+      <ol>
+        <li><a href="https://developers.kakao.com" target="_blank" rel="noopener">developers.kakao.com</a>에서 앱 생성</li>
+        <li>앱 설정 &gt; 플랫폼 &gt; Web에 이 페이지의 도메인 등록</li>
+        <li><code>js/config.js</code>의 <code>KAKAO_JS_KEY</code>에 JavaScript 키 입력</li>
+      </ol>
+    </div>
+  </div>
+
+  <script src="js/config.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
