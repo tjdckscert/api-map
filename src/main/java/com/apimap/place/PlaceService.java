@@ -1,7 +1,7 @@
 package com.apimap.place;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import tools.jackson.databind.JsonNode;
+import tools.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -30,7 +30,7 @@ public class PlaceService {
 
     private static final String KAKAO_SEARCH = "https://search.map.kakao.com/mapsearch/map.daum";
     private static final String NOMINATIM = "https://nominatim.openstreetmap.org/reverse";
-    private static final String USER_AGENT = "api-map-personal/0.1 (개인용 지도)";
+    private static final String USER_AGENT = "api-map-personal/0.1 (personal map tool)";
     private static final Map<String, String> CATEGORY_KEYWORDS = Map.of(
             "food", "음식점",
             "cafe", "카페"
