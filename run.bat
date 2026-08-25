@@ -1,5 +1,5 @@
 @echo off
-rem JAVA_HOME이 없으면 Eclipse Adoptium 설치 경로에서 자동 감지
+rem Auto-detect JAVA_HOME from Eclipse Adoptium install if not set
 if "%JAVA_HOME%"=="" (
   for /d %%d in ("C:\Program Files\Eclipse Adoptium\jdk-*") do set "JAVA_HOME=%%d"
 )
