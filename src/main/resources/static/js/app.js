@@ -46,9 +46,10 @@
     }
 
     var seq = ++fetchSeq;
-    var c = map.getCenter();
+    var b = map.getBounds();
     setStatus('검색 중…');
-    fetch('/api/places?lat=' + c.lat.toFixed(6) + '&lng=' + c.lng.toFixed(6) +
+    fetch('/api/places?swLat=' + b.getSouth().toFixed(6) + '&swLng=' + b.getWest().toFixed(6) +
+          '&neLat=' + b.getNorth().toFixed(6) + '&neLng=' + b.getEast().toFixed(6) +
           '&categories=' + categories.join(','))
       .then(function (r) {
         if (!r.ok) throw new Error('HTTP ' + r.status);
