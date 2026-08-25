@@ -19,14 +19,16 @@ public class PlaceController {
     }
 
     /**
-     * 지도 중심 좌표 주변의 음식점/카페를 평점과 함께 반환.
-     * 예: /api/places?lat=37.498&lng=127.028&categories=food,cafe
+     * 지도 뷰포트(bbox) 안의 음식점/카페를 평점과 함께 반환.
+     * 예: /api/places?swLat=37.49&swLng=127.02&neLat=37.51&neLng=127.04&categories=food,cafe
      */
     @GetMapping("/places")
     public Map<String, Object> places(
-            @RequestParam double lat,
-            @RequestParam double lng,
+            @RequestParam double swLat,
+            @RequestParam double swLng,
+            @RequestParam double neLat,
+            @RequestParam double neLng,
             @RequestParam(defaultValue = "food,cafe") List<String> categories) {
-        return placeService.findPlaces(lat, lng, categories);
+        return placeService.findPlaces(swLat, swLng, neLat, neLng, categories);
     }
 }
