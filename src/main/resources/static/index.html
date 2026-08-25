@@ -4,6 +4,8 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>API Map — 음식점·카페 평점 지도</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@400;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
         integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
   <link rel="stylesheet" href="css/style.css" />
@@ -11,7 +13,16 @@
 <body>
   <div id="map"></div>
 
-  <div id="controls">
+  <div id="topbar">
+    <div id="searchbar">
+      <svg viewBox="0 0 24 24" class="icon-search" aria-hidden="true">
+        <path d="M15.5 14h-.79l-.28-.27a6.5 6.5 0 1 0-.7.7l.27.28v.79l5 4.99L20.49 19zm-6 0A4.5 4.5 0 1 1 14 9.5 4.5 4.5 0 0 1 9.5 14z"/>
+      </svg>
+      <input id="search-input" type="text" placeholder="장소·지역 검색 (예: 홍대 카페)"
+             autocomplete="off" spellcheck="false" />
+      <button id="search-clear" hidden aria-label="지우기">×</button>
+      <ul id="search-results" hidden></ul>
+    </div>
     <div class="control-group">
       <label class="toggle">
         <input type="checkbox" id="chk-food" checked />
@@ -21,14 +32,11 @@
         <input type="checkbox" id="chk-cafe" checked />
         <span class="chip cafe">카페</span>
       </label>
-    </div>
-    <div class="control-group">
-      <label for="min-rating">카카오 평점</label>
-      <select id="min-rating">
-        <option value="0">전체</option>
-        <option value="3.5">3.5+</option>
-        <option value="4.0">4.0+</option>
-        <option value="4.5">4.5+</option>
+      <select id="min-rating" title="카카오 최소 평점">
+        <option value="0">평점 전체</option>
+        <option value="3.5">★ 3.5+</option>
+        <option value="4.0">★ 4.0+</option>
+        <option value="4.5">★ 4.5+</option>
       </select>
     </div>
     <div id="status"></div>
