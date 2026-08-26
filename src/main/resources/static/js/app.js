@@ -246,8 +246,6 @@
     return 'https://search.naver.com/search.naver?ssc=tab.blog.all&query=' + encodeURIComponent(query);
   }
 
-  window.__map = map; // 디버깅용
-
   // 팝업이 열릴 때 블로그 리뷰 카드를 lazy 로드
   map.on('popupopen', function (e) {
     popupIsOpen = true;
