@@ -197,7 +197,25 @@
       '<a class="kakao" href="' + esc(p.placeUrl) + '" target="_blank" rel="noopener">카카오맵</a>' +
       '<a class="naver" href="https://map.naver.com/p/search/' + encodeURIComponent(p.name) +
       '" target="_blank" rel="noopener">네이버지도</a>' +
+      '</div>' +
+      '<div class="links">' +
+      '<a class="blog" href="' + esc(blogReviewUrl(p)) + '" target="_blank" rel="noopener">네이버 블로그 리뷰</a>' +
       '</div></div>';
+  }
+
+  /**
+   * 네이버 블로그 리뷰 링크.
+   * 네이버 플레이스 ID가 수집된 곳은 플레이스 리뷰 탭으로 직접,
+   * 아니면 "동네 + 상호명"으로 네이버 블로그 검색 탭에 연결한다.
+   */
+  function blogReviewUrl(p) {
+    if (p.naver && p.naver.id) {
+      return 'https://m.place.naver.com/place/' + encodeURIComponent(p.naver.id) + '/review/ugc';
+    }
+    var tokens = String(p.address || '').split(/\s+/);
+    var area = (tokens[2] || tokens[1] || '').replace(/(시|구|군)$/, '');
+    var query = (area ? area + ' ' : '') + p.name;
+    return 'https://search.naver.com/search.naver?ssc=tab.blog.all&query=' + encodeURIComponent(query);
   }
 
   function ratingRow(cls, label, data) {
