@@ -214,6 +214,8 @@
       '<a class="kakao" href="' + esc(p.placeUrl) + '" target="_blank" rel="noopener">카카오맵</a>' +
       '<a class="naver" href="https://map.naver.com/p/search/' + encodeURIComponent(p.name) +
       '" target="_blank" rel="noopener">네이버지도</a>' +
+      '<a class="route-btn" href="#" data-lat="' + p.lat + '" data-lng="' + p.lng +
+      '" data-name="' + esc(p.name) + '">길찾기</a>' +
       '</div>' +
       '<div class="blog-section" data-name="' + esc(p.name) + '" data-area="' + esc(areaOf(p)) + '"' +
       ' data-fallback="' + esc(blogReviewUrl(p)) + '"></div>' +
