@@ -212,8 +212,12 @@
     if (p.naver && p.naver.id) {
       return 'https://m.place.naver.com/place/' + encodeURIComponent(p.naver.id) + '/review/ugc';
     }
-    var tokens = String(p.address || '').split(/\s+/);
-    var area = (tokens[2] || tokens[1] || '').replace(/(시|구|군)$/, '');
+    // 주소 앞 3토큰 중 구/군/시로 끝나는 마지막 것을 지역어로 사용
+    // 예: "서울 마포구 양화로16길" → 마포, "경기 화성시 동탄구 …" → 동탄
+    var area = '';
+    String(p.address || '').split(/\s+/).slice(0, 3).forEach(function (t) {
+      if (t.length >= 3 && /(구|군|시)$/.test(t)) area = t.slice(0, -1);
+    });
     var query = (area ? area + ' ' : '') + p.name;
     return 'https://search.naver.com/search.naver?ssc=tab.blog.all&query=' + encodeURIComponent(query);
   }
