@@ -202,13 +202,25 @@
       '<a class="naver" href="https://map.naver.com/p/search/' + encodeURIComponent(p.name) +
       '" target="_blank" rel="noopener">네이버지도</a>' +
       '</div>' +
-      '<div class="links">' +
-      '<a class="blog" href="' + esc(blogReviewUrl(p)) + '" target="_blank" rel="noopener">네이버 블로그 리뷰</a>' +
-      '</div></div>';
+      '<div class="blog-section" data-name="' + esc(p.name) + '" data-area="' + esc(areaOf(p)) + '"' +
+      ' data-fallback="' + esc(blogReviewUrl(p)) + '"></div>' +
+      '</div>';
   }
 
   /**
-   * 네이버 블로그 리뷰 링크.
+   * 주소 앞 3토큰 중 구/군/시로 끝나는 마지막 것을 지역어로 사용.
+   * 예: "서울 마포구 양화로16길" → 마포, "경기 화성시 동탄구 …" → 동탄
+   */
+  function areaOf(p) {
+    var area = '';
+    String(p.address || '').split(/\s+/).slice(0, 3).forEach(function (t) {
+      if (t.length >= 3 && /(구|군|시)$/.test(t)) area = t.slice(0, -1);
+    });
+    return area;
+  }
+
+  /**
+   * 블로그 리뷰 폴백/더보기 링크.
    * 네이버 플레이스 ID가 수집된 곳은 플레이스 리뷰 탭으로 직접,
    * 아니면 "동네 + 상호명"으로 네이버 블로그 검색 탭에 연결한다.
    */
@@ -216,14 +228,50 @@
     if (p.naver && p.naver.id) {
       return 'https://m.place.naver.com/place/' + encodeURIComponent(p.naver.id) + '/review/ugc';
     }
-    // 주소 앞 3토큰 중 구/군/시로 끝나는 마지막 것을 지역어로 사용
-    // 예: "서울 마포구 양화로16길" → 마포, "경기 화성시 동탄구 …" → 동탄
-    var area = '';
-    String(p.address || '').split(/\s+/).slice(0, 3).forEach(function (t) {
-      if (t.length >= 3 && /(구|군|시)$/.test(t)) area = t.slice(0, -1);
-    });
+    var area = areaOf(p);
     var query = (area ? area + ' ' : '') + p.name;
     return 'https://search.naver.com/search.naver?ssc=tab.blog.all&query=' + encodeURIComponent(query);
+  }
+
+  // 팝업이 열릴 때 블로그 리뷰 카드를 lazy 로드
+  map.on('popupopen', function (e) {
+    var el = e.popup.getElement();
+    var section = el && el.querySelector('.blog-section');
+    if (!section || section.dataset.loaded) return;
+    section.dataset.loaded = '1';
+    section.innerHTML = '<div class="blog-loading">블로그 리뷰 불러오는 중…</div>';
+
+    fetch('/api/blog-reviews?name=' + encodeURIComponent(section.dataset.name) +
+          '&area=' + encodeURIComponent(section.dataset.area))
+      .then(function (r) { return r.json(); })
+      .then(function (data) {
+        renderBlogCards(section, data.posts || []);
+        e.popup.update();
+      })
+      .catch(function () {
+        renderBlogCards(section, []);
+        e.popup.update();
+      });
+  });
+
+  function renderBlogCards(section, posts) {
+    var fallback = section.dataset.fallback;
+    if (!posts.length) {
+      // 키 미설정/결과 없음 → 기존 링크 버튼으로 대체
+      section.innerHTML = '<div class="links">' +
+        '<a class="blog" href="' + esc(fallback) + '" target="_blank" rel="noopener">네이버 블로그 리뷰</a></div>';
+      return;
+    }
+    var html = '<div class="blog-label">네이버 블로그 리뷰</div>';
+    posts.slice(0, 3).forEach(function (b) {
+      html += '<a class="blog-card" href="' + esc(b.link) + '" target="_blank" rel="noopener">' +
+        '<div class="bc-title">' + esc(b.title) + '</div>' +
+        '<div class="bc-desc">' + esc(b.description) + '</div>' +
+        '<div class="bc-meta">' + esc(b.blogger) + ' · ' + esc(b.date) + '</div>' +
+        '</a>';
+    });
+    html += '<a class="blog-more" href="' + esc(fallback) + '" target="_blank" rel="noopener">블로그 리뷰 더보기 →</a>';
+    section.innerHTML = html;
   }
 
   function ratingRow(cls, label, data) {
