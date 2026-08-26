@@ -215,6 +215,8 @@ body {
 .place-popup .links a:hover { filter: brightness(0.95); }
 .place-popup .links a.kakao { background: var(--kakao); color: #3c1e1e; }
 .place-popup .links a.naver { background: var(--naver); color: #fff; }
+.place-popup .links a.blog { background: #fff; color: var(--naver); border: 1.5px solid var(--naver); padding: 6.5px 0; }
+.place-popup .links + .links { margin-top: 8px; }
 
 /* Leaflet 줌 컨트롤 위치/스타일 */
 .leaflet-control-zoom { border: none !important; box-shadow: var(--shadow) !important; border-radius: 10px !important; overflow: hidden; }
