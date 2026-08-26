@@ -14,10 +14,23 @@ public class PlaceController {
 
     private final PlaceService placeService;
     private final NaverBlogService naverBlogService;
+    private final RouteService routeService;
 
-    public PlaceController(PlaceService placeService, NaverBlogService naverBlogService) {
+    public PlaceController(PlaceService placeService, NaverBlogService naverBlogService,
+                           RouteService routeService) {
         this.placeService = placeService;
         this.naverBlogService = naverBlogService;
+        this.routeService = routeService;
+    }
+
+    /** 자동차 경로. 예: /api/route?fromLat=..&fromLng=..&toLat=..&toLng=.. */
+    @GetMapping("/route")
+    public Map<String, Object> route(
+            @RequestParam double fromLat,
+            @RequestParam double fromLng,
+            @RequestParam double toLat,
+            @RequestParam double toLng) {
+        return routeService.route(fromLat, fromLng, toLat, toLng);
     }
 
     /** 팝업용 블로그 리뷰 카드. 예: /api/blog-reviews?name=카시아&area=동탄 */
