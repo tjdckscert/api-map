@@ -32,6 +32,8 @@ public class RouteService {
     private final ObjectMapper mapper;
     private final RestClient http = RestClient.builder()
             .defaultHeader("User-Agent", "api-map-personal/0.1 (personal map tool)")
+            // OSRM(nginx)의 비표준 deflate 응답이 자동 압축해제와 충돌 → 압축 비활성화
+            .defaultHeader("Accept-Encoding", "identity")
             .build();
     private final Map<String, Cached> cache = new ConcurrentHashMap<>();
 
