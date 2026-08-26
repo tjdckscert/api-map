@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "api-map",
+      "runtimeExecutable": "C:\\DEV\\API Map\\run.bat",
+      "runtimeArgs": [],
+      "port": 8890
+    }
+  ]
+}
