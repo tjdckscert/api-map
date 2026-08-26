@@ -32,9 +32,14 @@ public class PlaceController {
         return placeService.findPlaces(swLat, swLng, neLat, neLng, categories);
     }
 
-    /** 검색창: 장소/지역 자유 검색. 예: /api/search?q=홍대 카페 */
+    /** 검색창: 음식점/카페 자유 검색. 뷰포트를 주면 그 주변을 우선한다. */
     @GetMapping("/search")
-    public Map<String, Object> search(@RequestParam String q) {
-        return Map.of("places", placeService.searchByQuery(q));
+    public Map<String, Object> search(
+            @RequestParam String q,
+            @RequestParam(required = false) Double swLat,
+            @RequestParam(required = false) Double swLng,
+            @RequestParam(required = false) Double neLat,
+            @RequestParam(required = false) Double neLng) {
+        return Map.of("places", placeService.searchByQuery(q, swLat, swLng, neLat, neLng));
     }
 }
