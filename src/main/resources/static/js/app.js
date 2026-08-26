@@ -101,7 +101,11 @@
           iconAnchor: [0, 12],
         }),
       });
-      marker.bindPopup(popupHtml(p), { maxWidth: 300 });
+      // 문자열 대신 DOM 노드로 바인딩: popup.update() 시 lazy 로드된
+      // 블로그 카드가 원본 HTML로 덮어써지지 않는다.
+      var content = document.createElement('div');
+      content.innerHTML = popupHtml(p);
+      marker.bindPopup(content.firstChild, { maxWidth: 300 });
       layer.addLayer(marker);
       if (isFocus) focusMarker = marker;
     });
