@@ -185,6 +185,7 @@ public class PlaceService {
                     p.path("reviewCount").asInt(0));
         }
         String category = p.path("cate_name_depth3").asText("");
+        if (category.isEmpty()) category = p.path("cate_name_depth2").asText("");
         if (category.isEmpty()) category = categoryLabel;
 
         return new Place(
