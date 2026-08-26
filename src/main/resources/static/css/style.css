@@ -216,7 +216,56 @@ body {
 .place-popup .links a.kakao { background: var(--kakao); color: #3c1e1e; }
 .place-popup .links a.naver { background: var(--naver); color: #fff; }
 .place-popup .links a.blog { background: #fff; color: var(--naver); border: 1.5px solid var(--naver); padding: 6.5px 0; }
-.place-popup .links + .links { margin-top: 8px; }
+
+/* 블로그 리뷰 카드 */
+.blog-section { margin-top: 10px; }
+.blog-loading { color: var(--ink-3); font-size: 12px; padding: 4px 0; }
+.blog-label {
+  font-size: 11px;
+  font-weight: 800;
+  color: var(--naver);
+  margin-bottom: 6px;
+  letter-spacing: -0.2px;
+}
+.blog-card {
+  display: block;
+  padding: 8px 10px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  margin-bottom: 6px;
+  text-decoration: none;
+  color: inherit;
+  transition: background 0.12s, border-color 0.12s;
+}
+.blog-card:hover { background: #f8f9fa; border-color: #d0ebdd; }
+.bc-title {
+  font-size: 12.5px;
+  font-weight: 700;
+  color: var(--ink);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.bc-desc {
+  font-size: 11.5px;
+  color: var(--ink-2);
+  line-height: 1.45;
+  margin-top: 2px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.bc-meta { font-size: 11px; color: var(--ink-3); margin-top: 3px; }
+.blog-more {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--naver);
+  text-decoration: none;
+  margin-top: 2px;
+}
+.blog-more:hover { text-decoration: underline; }
 
 /* Leaflet 줌 컨트롤 위치/스타일 */
 .leaflet-control-zoom { border: none !important; box-shadow: var(--shadow) !important; border-radius: 10px !important; overflow: hidden; }
