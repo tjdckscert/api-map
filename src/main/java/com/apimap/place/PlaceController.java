@@ -13,9 +13,19 @@ import java.util.Map;
 public class PlaceController {
 
     private final PlaceService placeService;
+    private final NaverBlogService naverBlogService;
 
-    public PlaceController(PlaceService placeService) {
+    public PlaceController(PlaceService placeService, NaverBlogService naverBlogService) {
         this.placeService = placeService;
+        this.naverBlogService = naverBlogService;
+    }
+
+    /** 팝업용 블로그 리뷰 카드. 예: /api/blog-reviews?name=카시아&area=동탄 */
+    @GetMapping("/blog-reviews")
+    public Map<String, Object> blogReviews(
+            @RequestParam String name,
+            @RequestParam(defaultValue = "") String area) {
+        return naverBlogService.search(name, area);
     }
 
     /**
