@@ -25,11 +25,20 @@
   var focusId = null; // 검색으로 이동한 장소: 렌더 후 팝업 자동 오픈
 
   // ── 지도 이벤트 ──────────────────────────────
+  // 팝업이 열려 있는 동안은 재검색하지 않는다.
+  // (팝업 autoPan → moveend → 마커 재생성으로 열린 팝업이 초기화되는 것 방지)
+  var popupIsOpen = false;
   var timer = null;
   map.on('moveend', function () {
     saveViewport();
+    if (popupIsOpen) return;
     clearTimeout(timer);
     timer = setTimeout(refresh, 400);
+  });
+  map.on('popupclose', function () {
+    popupIsOpen = false;
+    clearTimeout(timer);
+    timer = setTimeout(refresh, 300); // 팝업 보는 동안 이동했을 수 있으니 한 번 갱신
   });
   document.querySelectorAll('.control-group input').forEach(function (el) {
     el.addEventListener('change', refresh);
