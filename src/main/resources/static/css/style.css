@@ -267,6 +267,51 @@ body {
 }
 .blog-more:hover { text-decoration: underline; }
 
+.place-popup .links a.route-btn { background: #4263eb; color: #fff; }
+
+/* ─── 길찾기 바 ─────────────────────────────── */
+#routebar {
+  position: absolute;
+  left: 50%;
+  bottom: 22px;
+  transform: translateX(-50%);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: #fff;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 10px 14px;
+  font-size: 13px;
+  max-width: calc(100vw - 28px);
+  white-space: nowrap;
+}
+#routebar[hidden] { display: none; }
+#route-info { font-weight: 700; color: var(--ink); }
+.route-links { display: flex; gap: 6px; }
+.route-links a {
+  padding: 5px 10px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 12px;
+}
+#route-kakao { background: var(--kakao); color: #3c1e1e; }
+#route-naver { background: var(--naver); color: #fff; }
+#route-close {
+  border: none;
+  background: #f1f3f5;
+  color: var(--ink-3);
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  font-size: 15px;
+  line-height: 1;
+  cursor: pointer;
+}
+#route-close:hover { background: var(--line); color: var(--ink); }
+
 /* Leaflet 줌 컨트롤 위치/스타일 */
 .leaflet-control-zoom { border: none !important; box-shadow: var(--shadow) !important; border-radius: 10px !important; overflow: hidden; }
 .leaflet-control-zoom a { color: var(--ink-2) !important; }
