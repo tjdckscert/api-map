@@ -77,35 +77,59 @@ public class PlaceService {
         return Map.of("region", region, "places", List.copyOf(merged.values()));
     }
 
-    /** 검색창용: 자유 검색어로 장소 검색 (지역 이동/장소 찾기). */
-    public List<Place> searchByQuery(String query) {
-        String key = "q|" + query;
+    private static final int SEARCH_MAX_RESULTS = 15;
+    private static final int SEARCH_MAX_PAGES = 4;
+
+    /**
+     * 검색창용: 자유 검색어로 음식점/카페만 검색.
+     * 뷰포트가 주어지면 그 주변(확장 영역)을 먼저 찾고, 부족하면 전국 검색으로 보충한다.
+     */
+    public List<Place> searchByQuery(String query, Double swLat, Double swLng, Double neLat, Double neLng) {
+        String rect = null;
+        if (swLat != null && swLng != null && neLat != null && neLng != null) {
+            double[] sw = Wcong.fromWgs84(swLat, swLng);
+            double[] ne = Wcong.fromWgs84(neLat, neLng);
+            rect = "%.0f,%.0f,%.0f,%.0f".formatted(sw[0], sw[1], ne[0], ne[1]);
+        }
+        String key = "q|" + query + "|" + (rect == null ? "all" : rect);
         Cached<List<Place>> hit = searchCache.get(key);
         if (hit != null && hit.fresh(SEARCH_TTL)) return hit.value();
 
         List<Place> places = new ArrayList<>();
-        try {
-            String uri = UriComponentsBuilder.fromUriString(KAKAO_SEARCH)
-                    .queryParam("q", query)
-                    .queryParam("msFlag", "A")
-                    .queryParam("sort", "0")
-                    .queryParam("page", 1)
-                    .build().toUriString();
-            String body = http.get().uri(uri)
-                    .header("Referer", "https://map.kakao.com/")
-                    .retrieve().body(String.class);
-            JsonNode placeList = mapper.readTree(body).path("place");
-            if (placeList.isArray()) {
-                for (JsonNode p : placeList) {
-                    Place place = toPlace(p, "");
-                    if (place != null) places.add(place);
-                }
-            }
-        } catch (Exception e) {
-            log.warn("검색 실패 (q={}): {}", query, e.getMessage());
-        }
+        java.util.Set<String> seen = new java.util.HashSet<>();
+        if (rect != null) collectFoodPlaces(query, rect, places, seen);
+        if (places.size() < SEARCH_MAX_RESULTS) collectFoodPlaces(query, null, places, seen);
+
         searchCache.put(key, new Cached<>(places, Instant.now()));
         return places;
+    }
+
+    /** 음식점/카페(cate_name_depth1=음식점)만 걸러 최대 SEARCH_MAX_RESULTS건까지 수집. */
+    private void collectFoodPlaces(String query, String rect, List<Place> out, java.util.Set<String> seen) {
+        for (int page = 1; page <= SEARCH_MAX_PAGES && out.size() < SEARCH_MAX_RESULTS; page++) {
+            try {
+                UriComponentsBuilder b = UriComponentsBuilder.fromUriString(KAKAO_SEARCH)
+                        .queryParam("q", query)
+                        .queryParam("msFlag", "A")
+                        .queryParam("sort", "0")
+                        .queryParam("page", page);
+                if (rect != null) b.queryParam("mcheck", "Y").queryParam("rect", rect);
+                String body = http.get().uri(b.build().toUriString())
+                        .header("Referer", "https://map.kakao.com/")
+                        .retrieve().body(String.class);
+                JsonNode placeList = mapper.readTree(body).path("place");
+                if (!placeList.isArray() || placeList.isEmpty()) break;
+                for (JsonNode p : placeList) {
+                    if (out.size() >= SEARCH_MAX_RESULTS) break;
+                    if (!"음식점".equals(p.path("cate_name_depth1").asText(""))) continue;
+                    Place place = toPlace(p, "");
+                    if (place != null && seen.add(place.id())) out.add(place);
+                }
+            } catch (Exception e) {
+                log.warn("검색 실패 (q={}, rect={}, page={}): {}", query, rect, page, e.getMessage());
+                break;
+            }
+        }
     }
 
     private List<Place> searchCached(String keyword, String rect) {
