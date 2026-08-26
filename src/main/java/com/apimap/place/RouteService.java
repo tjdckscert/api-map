@@ -46,7 +46,9 @@ public class RouteService {
         if (hit != null && hit.fresh()) return hit.route();
 
         Map<String, Object> route = fetch(fromLat, fromLng, toLat, toLng);
-        cache.put(key, new Cached(route, Instant.now()));
+        if (!((List<?>) route.get("coords")).isEmpty()) { // 실패 결과는 캐시하지 않음
+            cache.put(key, new Cached(route, Instant.now()));
+        }
         return route;
     }
 
