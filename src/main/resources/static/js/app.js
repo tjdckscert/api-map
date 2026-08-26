@@ -305,6 +305,100 @@
     return '<div class="rating-row"><span class="src ' + cls + '">' + label + '</span>' + body + '</div>';
   }
 
+  // ── 길찾기 ───────────────────────────────────
+  var routeLayer = L.layerGroup().addTo(map);
+  var routeDest = null;
+  var pickingOrigin = false;
+
+  document.addEventListener('click', function (e) {
+    var btn = e.target.closest('.route-btn');
+    if (!btn) return;
+    e.preventDefault();
+    startDirections({ lat: +btn.dataset.lat, lng: +btn.dataset.lng, name: btn.dataset.name });
+  });
+
+  document.getElementById('route-close').addEventListener('click', closeRoute);
+
+  map.on('click', function (e) {
+    if (!pickingOrigin || !routeDest) return;
+    pickingOrigin = false;
+    drawRoute({ lat: e.latlng.lat, lng: e.latlng.lng }, routeDest);
+  });
+
+  function startDirections(dest) {
+    routeDest = dest;
+    map.closePopup();
+    routeLayer.clearLayers();
+    openRoutebar(dest);
+    setRouteInfo('내 위치 확인 중…');
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        function (pos) {
+          drawRoute({ lat: pos.coords.latitude, lng: pos.coords.longitude }, dest);
+        },
+        pickOrigin,
+        { timeout: 5000, maximumAge: 60000 }
+      );
+    } else {
+      pickOrigin();
+    }
+  }
+
+  function pickOrigin() {
+    pickingOrigin = true;
+    setRouteInfo('지도를 클릭해 출발지를 선택하세요');
+  }
+
+  function drawRoute(from, to) {
+    setRouteInfo('경로 계산 중…');
+    fetch('/api/route?fromLat=' + from.lat.toFixed(6) + '&fromLng=' + from.lng.toFixed(6) +
+          '&toLat=' + to.lat.toFixed(6) + '&toLng=' + to.lng.toFixed(6))
+      .then(function (r) { return r.json(); })
+      .then(function (r) {
+        if (!r.coords || !r.coords.length) {
+          setRouteInfo('경로를 찾지 못했습니다 — 포털 길찾기를 이용하세요');
+          return;
+        }
+        routeLayer.clearLayers();
+        var line = L.polyline(r.coords, { color: '#4263eb', weight: 5, opacity: 0.85 });
+        routeLayer.addLayer(line);
+        routeLayer.addLayer(dotMarker(from, '#20c997')); // 출발
+        routeLayer.addLayer(dotMarker(to, '#fa5252'));   // 도착
+        map.fitBounds(line.getBounds(), { padding: [60, 60] });
+        setRouteInfo('자동차 ' + (r.distance / 1000).toFixed(1) + 'km · 약 ' +
+          Math.max(1, Math.round(r.duration / 60)) + '분');
+      })
+      .catch(function () {
+        setRouteInfo('경로 계산 실패 — 포털 길찾기를 이용하세요');
+      });
+  }
+
+  function dotMarker(pt, color) {
+    return L.circleMarker([pt.lat, pt.lng], {
+      radius: 7, color: '#fff', weight: 2.5, fillColor: color, fillOpacity: 1,
+    });
+  }
+
+  function openRoutebar(dest) {
+    document.getElementById('route-kakao').href =
+      'https://map.kakao.com/link/to/' + encodeURIComponent(dest.name) + ',' + dest.lat + ',' + dest.lng;
+    document.getElementById('route-naver').href =
+      'https://map.naver.com/p/directions/-/' + dest.lng + ',' + dest.lat + ',' +
+      encodeURIComponent(dest.name) + '/-/car';
+    document.getElementById('routebar').hidden = false;
+  }
+
+  function setRouteInfo(text) {
+    document.getElementById('route-info').textContent = text;
+  }
+
+  function closeRoute() {
+    routeLayer.clearLayers();
+    routeDest = null;
+    pickingOrigin = false;
+    document.getElementById('routebar').hidden = true;
+  }
+
   // ── 유틸 ─────────────────────────────────────
   function setStatus(text) {
     document.getElementById('status').textContent = text;
