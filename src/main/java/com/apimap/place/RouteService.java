@@ -73,7 +73,7 @@ public class RouteService {
                     "duration", r.path("duration").asDouble(0),
                     "coords", coords);
         } catch (Exception e) {
-            log.warn("경로 계산 실패 ({},{} → {},{})", fromLat, fromLng, toLat, toLng, e);
+            log.warn("경로 계산 실패 ({},{} → {},{}): {}", fromLat, fromLng, toLat, toLng, e.getMessage());
             return empty();
         }
     }
