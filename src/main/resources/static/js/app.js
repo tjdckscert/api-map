@@ -246,6 +246,7 @@
 
   // 팝업이 열릴 때 블로그 리뷰 카드를 lazy 로드
   map.on('popupopen', function (e) {
+    popupIsOpen = true;
     var el = e.popup.getElement();
     var section = el ? el.querySelector('.blog-section') : document.querySelector('.blog-section');
     if (!section || section.dataset.loaded) return;
