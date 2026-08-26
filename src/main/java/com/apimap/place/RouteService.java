@@ -56,7 +56,8 @@ public class RouteService {
         try {
             String uri = OSRM + "%f,%f;%f,%f?overview=full&geometries=geojson&alternatives=false&steps=false"
                     .formatted(fromLng, fromLat, toLng, toLat);
-            JsonNode root = mapper.readTree(http.get().uri(uri).retrieve().body(String.class));
+            byte[] raw = http.get().uri(java.net.URI.create(uri)).retrieve().body(byte[].class);
+            JsonNode root = mapper.readTree(new String(raw, java.nio.charset.StandardCharsets.UTF_8));
             if (!"Ok".equals(root.path("code").asText()) || root.path("routes").isEmpty()) {
                 return empty();
             }
