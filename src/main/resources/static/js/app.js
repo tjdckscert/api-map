@@ -134,7 +134,11 @@
   function runSearch() {
     var q = searchInput.value.trim();
     if (q.length < 2) return;
-    fetch('/api/search?q=' + encodeURIComponent(q))
+    // 현재 지도 주변(도시 규모로 확장한 영역)을 우선 검색
+    var b = map.getBounds().pad(5);
+    fetch('/api/search?q=' + encodeURIComponent(q) +
+          '&swLat=' + b.getSouth().toFixed(6) + '&swLng=' + b.getWest().toFixed(6) +
+          '&neLat=' + b.getNorth().toFixed(6) + '&neLng=' + b.getEast().toFixed(6))
       .then(function (r) { return r.json(); })
       .then(function (data) { showResults(data.places || []); })
       .catch(function () { showResults([]); });
